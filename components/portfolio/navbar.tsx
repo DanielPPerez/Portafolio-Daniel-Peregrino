@@ -1,0 +1,146 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { ArrowRight, Menu, X } from "lucide-react"
+import { useLanguage } from "@/lib/i18n/language-context"
+import { LanguageToggle } from "@/components/language-toggle"
+import { cn } from "@/lib/utils"
+
+const SECTIONS = ["inicio", "acerca", "proyectos", "stack", "experiencia", "contacto"] as const
+
+export function PortfolioNavbar() {
+  const { t } = useLanguage()
+  const [active, setActive] = useState<string>("inicio")
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  const links = [
+    { id: "inicio", label: t.nav.home },
+    { id: "acerca", label: t.nav.about },
+    { id: "proyectos", label: t.nav.projects },
+    { id: "stack", label: t.nav.techStack },
+    { id: "experiencia", label: t.nav.experience },
+    { id: "contacto", label: t.nav.contact },
+  ]
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        })
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    )
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "border-b border-white/10 bg-[#08080c]/85 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
+      <nav className="relative flex h-[4.4rem] w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        {/* DP — extremo izquierdo */}
+        <a
+          href="#inicio"
+          className="font-mono text-xl font-bold tracking-tight text-white text-glow-purple"
+        >
+          DP
+        </a>
+
+        {/* Secciones — centradas de verdad */}
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
+          {links.map((link) => (
+            <li key={link.id}>
+              <a
+                href={`#${link.id}`}
+                className={cn(
+                  "relative rounded-md px-3.5 py-2 text-[0.95rem] transition-colors",
+                  active === link.id ? "text-white" : "text-white/55 hover:text-white",
+                )}
+              >
+                {link.label}
+                {active === link.id && (
+                  <span className="absolute inset-x-3 -bottom-px h-px bg-neon-purple shadow-[0_0_8px_var(--neon-purple)]" />
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Cluster derecho — ES/EN y Shadow360Solutions al extremo derecho */}
+        <div className="flex items-center gap-2">
+          <LanguageToggle className="hidden sm:inline-flex" />
+          <Link
+            href="/shadow360"
+            className="hidden items-center gap-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-5 py-2 text-[0.95rem] font-medium text-neon-blue transition-all hover:glow-border-blue hover:bg-neon-blue/20 md:inline-flex"
+          >
+            {t.nav.shadowSolutions}
+            <ArrowRight className="size-[18px]" aria-hidden="true" />
+          </Link>
+          <button
+            type="button"
+            aria-label="Menu"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+            className="inline-flex size-10 items-center justify-center rounded-md border border-white/10 bg-white/5 text-white lg:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="border-t border-white/10 bg-[#08080c]/95 px-4 py-4 backdrop-blur-md lg:hidden">
+          <ul className="flex flex-col gap-1">
+            {links.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "block rounded-md px-3 py-2 text-sm",
+                    active === link.id ? "bg-white/10 text-white" : "text-white/60",
+                  )}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4 flex flex-col gap-3">
+            <Link
+              href="/shadow360"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-4 py-2 text-center text-sm font-medium text-neon-blue"
+            >
+              {t.nav.shadowSolutions}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            <div className="flex items-center justify-between">
+              <LanguageToggle />
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
