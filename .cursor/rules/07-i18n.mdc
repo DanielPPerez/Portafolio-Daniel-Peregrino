@@ -1,0 +1,68 @@
+---
+description: 07-i18n
+alwaysApply: true
+---
+
+# 07 · Internacionalización (i18n)
+
+> **Siempre activa y obligatoria** en todos los proyectos, aunque arranques con un solo idioma.
+> Añadir i18n al final es caro; arrancar con él cuesta casi nada.
+
+---
+
+## Reglas duras
+
+- **Cero texto hardcodeado** en la UI (ni en mensajes de error visibles, emails, validaciones).
+  Todo texto visible al usuario pasa por una **clave de traducción**.
+- Mínimo un locale definido desde el día 1. Estructura preparada para añadir más sin refactor.
+
+```tsx
+// ❌ prohibido
+<button>Guardar reserva</button>
+
+// ✅ correcto
+<button>{t('reservation.save')}</button>
+```
+
+## Estructura de locales
+
+- Archivos por idioma, claves namespaced por feature:
+
+```
+locales/
+  es/
+    common.json        { "save": "Guardar", "cancel": "Cancelar" }
+    reservation.json   { "save": "Guardar reserva", "tooLate": "Quedan menos de 24h" }
+  en/
+    common.json
+    reservation.json
+```
+
+- Claves **estables y semánticas** (`reservation.tooLate`), no el texto como clave.
+- El **locale por defecto** y la **estrategia de fallback** (si falta una clave → cae al default)
+  están definidos y documentados.
+
+## Buenas prácticas
+
+- **Pluralización e interpolación** vía la librería (ICU MessageFormat / i18next), no concatenando.
+  `t('cart.items', { count })` → "1 artículo" / "3 artículos".
+- **Fechas, números y moneda** se formatean con `Intl` según el locale, nunca a mano.
+- **Mensajes de error de la API**: el `code` es estable (ver [`03-errors-validation.md`](03-errors-validation.md))
+  y el texto traducible se resuelve en el cliente o por `Accept-Language`.
+- Detección de locale: por preferencia del usuario > header `Accept-Language` > default.
+
+## Librerías típicas
+
+- Web/JS: `i18next` / `react-i18next`, `next-intl`, `vue-i18n`.
+- Backend: resolver textos por `code` + locale; emails con plantillas por idioma.
+- Documenta cuál usas en `AI_CONTEXT.md` y enlaza su doc oficial (ver [`../docs`] si existe).
+
+---
+
+## Verificables
+
+- [ ] No hay texto visible hardcodeado; todo pasa por claves.
+- [ ] Existe estructura de locales con al menos un idioma y fallback definido.
+- [ ] Pluralización/interpolación vía la librería, no concatenando.
+- [ ] Fechas/números/moneda formateados con `Intl` según locale.
+- [ ] Mensajes de error traducibles a partir de un `code` estable.

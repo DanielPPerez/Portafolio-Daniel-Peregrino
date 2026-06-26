@@ -1,0 +1,79 @@
+---
+description: 02-business-rules
+alwaysApply: true
+---
+
+# 02 · Reglas de negocio
+
+> **Siempre activa.** Las reglas de negocio son la **fuente de verdad** del proyecto. No deben estar
+> dispersas y repetidas por el código; viven en un lugar, se documentan, se validan y se prueban.
+
+---
+
+## Dónde viven
+
+- En una **capa de dominio** propia (`domain/` o `core/`), independiente de framework, HTTP y BD.
+- Como **funciones puras** o entidades con métodos, sin dependencias de I/O.
+- Nunca dentro de controladores, componentes de UI, ni queries SQL sueltas.
+
+```
+src/
+  domain/                 ← reglas de negocio (puras, testeables, sin I/O)
+    pricing.ts
+    reservation.ts
+  application/            ← orquesta casos de uso (llama dominio + puertos)
+  infrastructure/         ← adaptadores: BD, HTTP, colas (detalles)
+  interfaces/             ← controladores, CLI, componentes UI
+```
+
+Esta separación es la misma que permite cambiar de BD o de framework sin tocar las reglas.
+Ver [`08-architecture-change.md`](08-architecture-change.md).
+
+## Cómo se documentan
+
+- Cada regla tiene un **nombre** y vive cerca del código que la implementa, con una línea que explica
+  el *porqué de negocio* (no el cómo técnico).
+- Las reglas importantes o discutidas se registran como **ADR** en
+  [`../context/DECISIONS.md`](../context/DECISIONS.md) (p. ej. "los reembolsos se permiten hasta 48h").
+- Si hay un documento de requisitos del cliente, enlázalo desde `AI_CONTEXT.md`.
+
+```ts
+/** Una reserva solo se cancela sin penalización con 24h de antelación. */
+function canCancelFree(reservation: Reservation, now: Date): boolean {
+  // @param-critico `FREE_CANCEL_WINDOW_HOURS` es regla de negocio, no constante técnica
+  return hoursBetween(now, reservation.startsAt) >= FREE_CANCEL_WINDOW_HOURS
+}
+```
+
+## Cómo se validan
+
+- La validación de **forma** del dato (tipos, formato, rangos) ocurre en la frontera con un esquema.
+  Ver [`03-errors-validation.md`](03-errors-validation.md).
+- La validación de **negocio** (reglas) ocurre en el dominio y lanza errores de negocio tipados,
+  no genéricos: `ReservationTooLateError`, no `Error("invalid")`.
+- Una regla de negocio **nunca** se valida solo en el frontend; el frontend es UX, el backend es la verdad.
+
+## Cómo se prueban
+
+- Toda regla de negocio tiene **tests unitarios** (entrada → salida esperada), incluyendo los bordes.
+- Los tests son la documentación ejecutable de la regla: si lees el test, entiendes la regla.
+- Las constantes de negocio (`FREE_CANCEL_WINDOW_HOURS`) se testean explícitamente en sus límites.
+
+---
+
+## Antipatrones a evitar
+
+- Misma regla copiada en frontend y backend con valores distintos → diverge en silencio.
+- Reglas embebidas en queries SQL o en `if` de controladores → invisibles e intesteables.
+- "Números mágicos" sin nombre (`if (hours >= 24)`) → nadie sabe que es una política de negocio.
+
+---
+
+## Verificables
+
+- [ ] Las reglas de negocio viven en una capa de dominio sin dependencias de I/O.
+- [ ] Cada regla importante está documentada (línea de porqué + ADR si es relevante).
+- [ ] La validación de negocio lanza errores tipados, no genéricos.
+- [ ] Ninguna regla vive solo en el frontend.
+- [ ] Cada regla tiene tests unitarios cubriendo sus bordes.
+- [ ] No hay números mágicos: las constantes de negocio tienen nombre.

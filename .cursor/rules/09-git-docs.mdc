@@ -1,0 +1,74 @@
+---
+description: 09-git-docs
+alwaysApply: true
+---
+
+# 09 · Git, commits y documentación viva
+
+> **Siempre activa.** El historial y la documentación cuentan la historia del proyecto a cualquier
+> humano o IA que llegue después.
+
+---
+
+## Git y ramas
+
+- Rama por trabajo: `feat/...`, `fix/...`, `chore/...`, `refactor/...`. Nunca commitear directo a `main`.
+- `main` siempre desplegable. PRs pequeños y revisables.
+- `.gitignore` correcto desde el inicio (`.env`, `node_modules`, `dist`, archivos de IDE).
+
+## Conventional Commits
+
+Mensajes en inglés, formato `type(scope): subject`:
+
+```
+feat(reservation): add free-cancel window rule
+fix(auth): reject expired refresh tokens
+refactor(db): extract ReservationRepository port
+chore(deps): bump fastify to 4.x
+docs(readme): document env setup
+```
+
+Tipos: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `build`, `ci`.
+Esto habilita **CHANGELOG** y **SemVer** automáticos.
+
+## SemVer (versionado semántico)
+
+`MAJOR.MINOR.PATCH`:
+- **MAJOR**: cambios incompatibles (rompe API/contrato).
+- **MINOR**: funcionalidad nueva compatible.
+- **PATCH**: arreglos compatibles.
+
+Un `feat` → MINOR, un `fix` → PATCH, un `feat!`/`BREAKING CHANGE` → MAJOR.
+
+## Documentación viva (mínimos del proyecto)
+
+| Archivo | Contenido |
+|---|---|
+| `README.md` | Qué es + **setup en menos de 5 minutos** (instalar, env, correr, test). |
+| `ARCHITECTURE.md` | Diagrama de capas, puertos/adaptadores, decisiones estructurales. |
+| `context/DECISIONS.md` | **ADRs**: cada decisión importante, con contexto, opciones y porqué. |
+| `CHANGELOG.md` | Cambios por versión (generable desde Conventional Commits). |
+| `context/AI_CONTEXT.md` | Estado y convenciones para que cualquier IA arranque. |
+| `context/PROGRESS.md` | Diario de sesiones (handoff entre IAs). |
+
+## ADRs — el detalle que grita "senior"
+
+Un ADR documenta **por qué** se eligió algo, no solo qué. Formato corto en
+[`../context/DECISIONS.md`](../context/DECISIONS.md). Toda decisión de arquitectura, elección de
+librería, o excepción al estándar va ahí. Una IA futura los respeta en vez de rehacerlos.
+
+## La doc se actualiza con el código
+
+- Un cambio que afecta setup, arquitectura o contrato **incluye** la actualización de su doc en el mismo PR.
+- Doc desactualizada es peor que no tenerla. Si una regla del estándar se rompe a propósito, ADR.
+
+---
+
+## Verificables
+
+- [ ] Trabajo en ramas con nombre por tipo; `main` desplegable.
+- [ ] Commits siguen Conventional Commits, en inglés.
+- [ ] Versionado con SemVer; existe CHANGELOG.
+- [ ] README permite levantar el proyecto en < 5 min.
+- [ ] Existen ARCHITECTURE.md y DECISIONS.md (ADRs) y están al día.
+- [ ] Los cambios actualizan su documentación en el mismo PR.

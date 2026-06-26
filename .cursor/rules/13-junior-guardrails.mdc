@@ -1,0 +1,72 @@
+---
+description: 13-junior-guardrails
+alwaysApply: true
+---
+
+# 13 · Guardarraíles anti-errores de junior
+
+> **Siempre activa.** Catálogo de los errores que más cometen los desarrolladores junior y el antídoto
+> concreto de cada uno. La IA debe auto-vigilarse contra estos. Muchos enlazan a la regla que los
+> desarrolla en detalle.
+
+---
+
+## Antes de escribir código
+
+| Error de junior | Antídoto |
+|---|---|
+| Arreglar sin entender el bug | **Reproduce primero**, identifica la **causa raíz**, no el síntoma. Escribe un test que falle, luego arréglalo. |
+| Asumir en vez de leer | Lee el código y las convenciones existentes antes de inventar. La respuesta suele estar en el repo. |
+| No preguntar ante ambigüedad | Si la tarea es ambigua, **pregunta**; construir lo equivocado cuesta más que una pregunta. |
+| Empezar a lo grande | Divide en pasos pequeños y verificables. |
+
+## Al escribir código
+
+| Error de junior | Antídoto |
+|---|---|
+| Hacer más (o menos) de lo pedido | Cíñete al alcance (ver [`11-scope-discipline`](11-scope-discipline.md)). Ni gold-plating ni dejar a medias. |
+| Over-engineering | Aplica ponytail/KISS/YAGNI: el mínimo que funciona ([`00-core-principles`](00-core-principles.md)). |
+| Copiar sin entender | No pegues código (de internet o de otra IA) que no puedas explicar línea por línea. |
+| Números mágicos y hardcode | Constantes con nombre; textos por i18n; config por env ([`07-i18n`](07-i18n.md), [`04-security`](04-security.md)). |
+| Solo el camino feliz | Cubre vacío/null/error/concurrencia ([`10-testing-edge-cases`](10-testing-edge-cases.md)). |
+| Tragar errores | Nada de `catch {}` vacío; maneja o propaga con contexto ([`03-errors-validation`](03-errors-validation.md)). |
+| Reinventar lo que existe | Reusa utilidades/funciones ya presentes antes de crear nuevas. |
+
+## Al integrar y entregar
+
+| Error de junior | Antídoto |
+|---|---|
+| Romper lo que funcionaba | Corre tests **antes y después**; no cambies contratos públicos sin avisar. |
+| PR gigante e irrevisable | Cambios pequeños y enfocados; separa refactor de feature. |
+| Commitear basura | Sin secretos, sin `console.log`/prints de debug, sin código comentado, sin archivos generados. |
+| Romper compatibilidad hacia atrás | Cambios incompatibles → versionar y comunicar ([`08-architecture-change`](08-architecture-change.md)). |
+| Mensajes de commit inútiles | Conventional Commits que expliquen el porqué ([`09-git-docs`](09-git-docs.md)). |
+
+## Con git y el entorno
+
+| Error de junior | Antídoto |
+|---|---|
+| Commitear directo a `main` | Trabaja en ramas; `main` siempre desplegable. |
+| Reescribir historia compartida | Nada de `push --force` sobre ramas compartidas ni `reset --hard` a ciegas. |
+| Borrar lo que no entiendes | Valla de Chesterton: investiga antes de eliminar ([`11-scope-discipline`](11-scope-discipline.md)). |
+| Probar solo en tu máquina | "Funciona en mi máquina" no basta: env reproducible, validar en CI/staging. |
+| Tocar prod sin red de seguridad | Backup + plan de rollback + staging ([`../checklists/pre-deploy.md`](../checklists/pre-deploy.md)). |
+
+## Actitud (lo que separa junior de senior)
+
+- **Documenta tus decisiones** (ADRs) y tu progreso (`PROGRESS.md`); no dejes el contexto solo en tu cabeza.
+- **Pide revisión** y acepta el feedback sin tomarlo personal.
+- **Di lo que no sabes.** Reportar honestamente "esto falla / no lo terminé / no estoy seguro" vale más
+  que aparentar que todo está bien.
+- **Deja el código mejor de como lo encontraste** — pero dentro de tu alcance, no fuera.
+
+---
+
+## Verificables
+
+- [ ] El bug se reprodujo y se atacó la causa raíz, no el síntoma.
+- [ ] Se reusó lo existente antes de crear código nuevo.
+- [ ] El commit no incluye secretos, logs de debug ni código comentado.
+- [ ] El cambio es pequeño y revisable; refactor separado de feature.
+- [ ] No se rompió compatibilidad ni se tocó `main`/historia compartida indebidamente.
+- [ ] Lo no sabido o no terminado se reportó con honestidad.

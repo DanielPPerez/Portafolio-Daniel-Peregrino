@@ -1,0 +1,67 @@
+---
+description: 11-scope-discipline
+alwaysApply: true
+---
+
+# 11 · Disciplina de alcance (scope)
+
+> **Siempre activa. Crítica al unirse a un proyecto a medias o en un fix puntual.** El error de junior
+> más caro es tocar lo que no te tocaba. Regla madre: **el diff más pequeño que resuelve la tarea.**
+
+---
+
+## Inferir y confirmar el alcance (antes de tocar código)
+
+1. **Lee** el ticket/petición y el código alrededor. Entiende qué se pide y qué NO.
+2. **Infiere el alcance** y resúmelo en 3-5 líneas: *qué voy a cambiar, en qué archivos, qué NO voy a
+   tocar, y cómo lo verificaré.*
+3. **Confírmalo conmigo** antes de escribir. Procede solo si lo apruebo o si es trivial e inequívoco.
+4. Si durante el trabajo el alcance crece, **para y avísame** — no lo expandas en silencio.
+
+> Modo de trabajo: *inferir y confirmar*. Para tareas acotadas usa
+> [`../prompts/02-scoped-task-prompt.md`](../prompts/02-scoped-task-prompt.md).
+
+## Diff mínimo
+
+- Cambia **solo** lo necesario para la tarea. Nada de "ya que estaba aquí, arreglé esto otro".
+- **No reformatees** archivos enteros: el ruido de formato esconde el cambio real y rompe el historial.
+  Respeta el estilo existente del archivo aunque difiera de tu preferencia.
+- **No hagas refactors no pedidos.** Si ves algo mejorable fuera de tu alcance, **anótalo y propónlo**
+  (un TODO, un issue, una nota en `PROGRESS.md`), no lo hagas dentro de este cambio.
+- Mantén los renombrados y movimientos de archivos en commits separados del cambio funcional.
+
+## No rompas lo ajeno
+
+- **Corre los tests antes** de empezar (para saber qué estaba verde) **y después** (para probar que no
+  rompiste nada). Si no había tests del área, añade los mínimos para protegerte.
+- **No cambies contratos públicos** (firmas de funciones exportadas, esquemas de API, formatos de
+  respuesta, eventos) sin saber quién depende de ellos. Si debes, es un cambio versionado y avisado
+  (ver [`08-architecture-change`](08-architecture-change.md)).
+- **No toques** configuración global, dependencias, migraciones o CI salvo que la tarea lo pida.
+
+## Valla de Chesterton (no borres lo que no entiendes)
+
+> "No quites una valla hasta saber por qué la pusieron."
+
+- Antes de **borrar o cambiar** código que parece raro/inútil, averigua por qué está ahí (git blame,
+  comentarios, tests, preguntar). Puede estar resolviendo un caso límite que no ves.
+- Código comentado o "muerto" que no entiendes: pregunta antes de eliminarlo.
+
+## Cuando entras a un proyecto a medias
+
+- **Primero leer, luego tocar:** convenciones, estructura, cómo se hacen las cosas aquí
+  (puede haber un estándar externo, ver [`12-standards-interop`](12-standards-interop.md)).
+- Reproduce el comportamiento actual antes de cambiarlo.
+- Replica los **patrones existentes** del repo aunque no sean tu favoritos; la consistencia vale más
+  que tu preferencia personal en código ajeno.
+
+---
+
+## Verificables
+
+- [ ] El alcance fue inferido, resumido y confirmado antes de codear.
+- [ ] El diff toca solo lo necesario; sin reformateos masivos ni refactors no pedidos.
+- [ ] Los tests pasaban antes y siguen pasando después.
+- [ ] No se cambiaron contratos públicos sin versionar/avisar.
+- [ ] No se borró código no entendido (se investigó o preguntó primero).
+- [ ] Las mejoras fuera de alcance quedaron propuestas, no aplicadas.

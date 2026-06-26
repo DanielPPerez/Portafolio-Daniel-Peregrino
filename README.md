@@ -15,7 +15,8 @@ La navegación entre ambas páginas usa una transición de deslizamiento, e incl
 ## ✨ Características
 
 ### Portafolio (`/`)
-- **Hero** con animación de fondo *Matrix rain* en canvas (performante, se pausa en pestaña oculta).
+
+- **Hero** con animación de fondo _Matrix rain_ en canvas (performante, se pausa en pestaña oculta).
 - **Estadísticas** con contadores animados al entrar en viewport.
 - **Acerca de**, **Proyectos** (con previsualización en vivo vía iframe + fallback), **Tech Stack**, **Experiencia**
   (timeline + certificaciones) y **Calendario** (embed de Google Calendar).
@@ -24,6 +25,7 @@ La navegación entre ambas páginas usa una transición de deslizamiento, e incl
 - Botones **Ver CV** (modal) y **Descargar CV** por idioma.
 
 ### Shadow360Solutions (`/shadow360`)
+
 - **Modo claro/oscuro** (next-themes) con acentos púrpura/rojo sobre base clara.
 - **Servicios y tarifas**, **Proceso**, **Testimonios**, **FAQ**, **Calendario** y **Formulario de contacto** con
   validación (Zod) y errores por campo.
@@ -32,6 +34,7 @@ La navegación entre ambas páginas usa una transición de deslizamiento, e incl
 - Logo con animación de giro 360° al hover.
 
 ### Transversales
+
 - **i18n ES/EN** mediante diccionarios locales y un contexto de idioma (persistido en `localStorage`).
 - Diseño **responsive**, accesible y con animaciones (Framer Motion).
 
@@ -39,14 +42,14 @@ La navegación entre ambas páginas usa una transición de deslizamiento, e incl
 
 ## 🧱 Stack
 
-| Área | Tecnologías |
-| --- | --- |
-| Framework | Next.js 16 (App Router), React 19, TypeScript |
-| Estilos | Tailwind CSS v4, shadcn/ui (Base UI), `tw-animate-css` |
-| Animación | Framer Motion |
-| Tema | next-themes (solo afecta a Shadow360Solutions) |
-| Validación | Zod |
-| Iconos | lucide-react + SVGs propios de marca |
+| Área       | Tecnologías                                            |
+| ---------- | ------------------------------------------------------ |
+| Framework  | Next.js 16 (App Router), React 19, TypeScript          |
+| Estilos    | Tailwind CSS v4, shadcn/ui (Base UI), `tw-animate-css` |
+| Animación  | Framer Motion                                          |
+| Tema       | next-themes (solo afecta a Shadow360Solutions)         |
+| Validación | Zod                                                    |
+| Iconos     | lucide-react + SVGs propios de marca                   |
 
 ---
 
@@ -86,12 +89,12 @@ pnpm dev        # http://localhost:3000
 
 ### Scripts
 
-| Script | Descripción |
-| --- | --- |
-| `pnpm dev` | Servidor de desarrollo |
+| Script       | Descripción                        |
+| ------------ | ---------------------------------- |
+| `pnpm dev`   | Servidor de desarrollo             |
 | `pnpm build` | Build de producción (valida tipos) |
-| `pnpm start` | Sirve el build de producción |
-| `pnpm lint` | Linter |
+| `pnpm start` | Sirve el build de producción       |
+| `pnpm lint`  | Linter                             |
 
 ---
 
