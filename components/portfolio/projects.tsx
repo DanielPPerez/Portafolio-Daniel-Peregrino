@@ -18,7 +18,10 @@ export function Projects() {
     <section id="proyectos" className="py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <p className="font-mono text-sm text-neon-blue">// {t.projects.title}</p>
+          <p className="font-mono text-sm text-neon-blue">
+            {"// "}
+            {t.projects.title}
+          </p>
           <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{t.projects.title}</h2>
           <p className="mt-3 max-w-2xl text-white/60">{t.projects.subtitle}</p>
         </Reveal>

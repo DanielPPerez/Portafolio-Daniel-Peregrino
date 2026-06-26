@@ -11,6 +11,10 @@ export const en: Dictionary = {
     shadowSolutions: "Shadow360Solutions",
     downloadCV: "Download CV",
     viewCV: "View CV",
+    cvExpand: "Fullscreen",
+    cvCollapse: "Reduce",
+    openInNewTab: "Open in new tab",
+    cvTitle: "Daniel Peregrino — CV",
   },
   hero: {
     greeting: "Hi, I'm",
@@ -79,11 +83,28 @@ export const en: Dictionary = {
       },
       {
         name: "Backend & Architecture",
-        techs: ["Python", "FastAPI", "Django", "Nest.js", "Hexagonal Architecture", "Microservices"],
+        techs: [
+          "Python",
+          "FastAPI",
+          "Django",
+          "Nest.js",
+          "Hexagonal Architecture",
+          "Microservices",
+        ],
       },
       {
         name: "Databases & AI",
-        techs: ["PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase", "LangGraph", "RAG", "YOLO", "OpenCV"],
+        techs: [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "Supabase",
+          "Firebase",
+          "LangGraph",
+          "RAG",
+          "YOLO",
+          "OpenCV",
+        ],
       },
       {
         name: "Cloud & DevOps",
@@ -118,7 +139,7 @@ export const en: Dictionary = {
       },
     ],
     certificationsTitle: "Certifications",
-    certifications: ["AWS Academy", "Cisco Networking", "Kaggle"],
+    viewCredential: "View credential",
   },
   calendar: {
     title: "My availability",
@@ -127,7 +148,8 @@ export const en: Dictionary = {
   contact: {
     title: "Contact",
     subtitle: "Let's talk about your next project",
-    email: "daniel.peregrino@example.com",
+    email: "danielperegrinoperez@gmail.com",
+    emailCopied: "Email copied!",
     socials: "Social media",
   },
   footer: {
@@ -161,19 +183,34 @@ export const en: Dictionary = {
         {
           title: "Full Stack Web Development",
           description: "Fast, secure and scalable web applications, tailored to your business.",
-          deliverables: ["Responsive design", "Backend and API", "Admin panel", "Deployment and support"],
+          deliverables: [
+            "Responsive design",
+            "Backend and API",
+            "Admin panel",
+            "Deployment and support",
+          ],
           price: "$2,500 USD",
         },
         {
           title: "Cross-platform Apps",
           description: "Mobile apps for iOS and Android from a single codebase.",
-          deliverables: ["iOS and Android app", "API integration", "Push notifications", "Store publishing"],
+          deliverables: [
+            "iOS and Android app",
+            "API integration",
+            "Push notifications",
+            "Store publishing",
+          ],
           price: "$3,500 USD",
         },
         {
           title: "AI Integration / Automation",
           description: "Automate processes and integrate AI to empower your team.",
-          deliverables: ["Chatbots and agents", "RAG pipelines", "Workflow automation", "Custom integrations"],
+          deliverables: [
+            "Chatbots and agents",
+            "RAG pipelines",
+            "Workflow automation",
+            "Custom integrations",
+          ],
           price: "$1,800 USD",
         },
         {
@@ -190,8 +227,14 @@ export const en: Dictionary = {
       steps: [
         { title: "Discovery", description: "We understand your goals, users and requirements." },
         { title: "Design", description: "We define the architecture, flow and interface." },
-        { title: "Development", description: "We build with iterative deliveries and continuous feedback." },
-        { title: "Delivery & Support", description: "We deploy, train and provide ongoing support." },
+        {
+          title: "Development",
+          description: "We build with iterative deliveries and continuous feedback.",
+        },
+        {
+          title: "Delivery & Support",
+          description: "We deploy, train and provide ongoing support.",
+        },
       ],
     },
     testimonials: {
@@ -201,17 +244,20 @@ export const en: Dictionary = {
         {
           name: "María González",
           company: "Retail Nova",
-          quote: "They turned our idea into a solid platform in record time. Flawless communication.",
+          quote:
+            "They turned our idea into a solid platform in record time. Flawless communication.",
         },
         {
           name: "Carlos Méndez",
           company: "FinTech Labs",
-          quote: "The AI integration exceeded our expectations. I recommend Shadow360Solutions without hesitation.",
+          quote:
+            "The AI integration exceeded our expectations. I recommend Shadow360Solutions without hesitation.",
         },
         {
           name: "Laura Ramírez",
           company: "EduPlus",
-          quote: "Professional, clear and very technical. They understood our business from day one.",
+          quote:
+            "Professional, clear and very technical. They understood our business from day one.",
         },
       ],
     },
@@ -254,8 +300,7 @@ export const en: Dictionary = {
       estimateTitle: "Ballpark estimate",
       negotiable: "Indicative estimate, subject to negotiation based on the final scope.",
       cta: "Book a call to refine the budget",
-      disclaimer:
-        "Demo: replies are sample responses. The final quote is confirmed after a call.",
+      disclaimer: "Demo: replies are sample responses. The final quote is confirmed after a call.",
       greeting:
         "Hi! I'm the Shadow360Solutions assistant. Tell me in a sentence or two what project you have in mind and I'll help you estimate scope and cost.",
       suggestions: [
@@ -292,7 +337,13 @@ export const en: Dictionary = {
       name: "Name",
       email: "Email",
       projectType: "Project type",
-      projectTypes: ["Web Development", "Cross-platform App", "AI Integration", "Consulting", "Other"],
+      projectTypes: [
+        "Web Development",
+        "Cross-platform App",
+        "AI Integration",
+        "Consulting",
+        "Other",
+      ],
       message: "Message",
       submit: "Send message",
       submitting: "Sending...",

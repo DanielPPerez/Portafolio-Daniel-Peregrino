@@ -9,6 +9,10 @@ export const es = {
     shadowSolutions: "Shadow360Solutions",
     downloadCV: "Descargar CV",
     viewCV: "Ver CV",
+    cvExpand: "Pantalla completa",
+    cvCollapse: "Reducir",
+    openInNewTab: "Abrir en pestaña",
+    cvTitle: "Daniel Peregrino — CV",
   },
   hero: {
     greeting: "Hola, soy",
@@ -34,12 +38,7 @@ export const es = {
       "Aplico principios de Arquitectura Hexagonal y Atomic Design para crear sistemas mantenibles y desacoplados. Me apasiona la IA aplicada: desde pipelines de RAG y agentes con LangGraph hasta visión por computadora con YOLO y OpenCV.",
       "Disfruto convertir problemas complejos en productos simples, rápidos y confiables.",
     ],
-    highlights: [
-      "Arquitectura Hexagonal",
-      "Atomic Design",
-      "Microservicios",
-      "IA Aplicada",
-    ],
+    highlights: ["Arquitectura Hexagonal", "Atomic Design", "Microservicios", "IA Aplicada"],
   },
   projects: {
     title: "Proyectos",
@@ -82,11 +81,28 @@ export const es = {
       },
       {
         name: "Backend & Arquitectura",
-        techs: ["Python", "FastAPI", "Django", "Nest.js", "Arquitectura Hexagonal", "Microservicios"],
+        techs: [
+          "Python",
+          "FastAPI",
+          "Django",
+          "Nest.js",
+          "Arquitectura Hexagonal",
+          "Microservicios",
+        ],
       },
       {
         name: "Bases de datos & IA",
-        techs: ["PostgreSQL", "MongoDB", "Redis", "Supabase", "Firebase", "LangGraph", "RAG", "YOLO", "OpenCV"],
+        techs: [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "Supabase",
+          "Firebase",
+          "LangGraph",
+          "RAG",
+          "YOLO",
+          "OpenCV",
+        ],
       },
       {
         name: "Cloud & DevOps",
@@ -121,7 +137,7 @@ export const es = {
       },
     ],
     certificationsTitle: "Certificaciones",
-    certifications: ["AWS Academy", "Cisco Networking", "Kaggle"],
+    viewCredential: "Ver credencial",
   },
   calendar: {
     title: "Mi disponibilidad",
@@ -130,7 +146,8 @@ export const es = {
   contact: {
     title: "Contacto",
     subtitle: "Hablemos sobre tu próximo proyecto",
-    email: "daniel.peregrino@example.com",
+    email: "danielperegrinoperez@gmail.com",
+    emailCopied: "¡Correo copiado!",
     socials: "Redes sociales",
   },
   footer: {
@@ -164,25 +181,45 @@ export const es = {
         {
           title: "Desarrollo Web Full Stack",
           description: "Aplicaciones web rápidas, seguras y escalables, a la medida de tu negocio.",
-          deliverables: ["Diseño responsive", "Backend y API", "Panel de administración", "Despliegue y soporte"],
+          deliverables: [
+            "Diseño responsive",
+            "Backend y API",
+            "Panel de administración",
+            "Despliegue y soporte",
+          ],
           price: "$2,500 USD",
         },
         {
           title: "Apps Multiplataforma",
           description: "Aplicaciones móviles para iOS y Android desde una sola base de código.",
-          deliverables: ["App iOS y Android", "Integración de APIs", "Notificaciones push", "Publicación en stores"],
+          deliverables: [
+            "App iOS y Android",
+            "Integración de APIs",
+            "Notificaciones push",
+            "Publicación en stores",
+          ],
           price: "$3,500 USD",
         },
         {
           title: "Integración de IA / Automatización",
           description: "Automatiza procesos e integra IA para potenciar tu equipo.",
-          deliverables: ["Chatbots y agentes", "Pipelines RAG", "Automatización de flujos", "Integraciones a medida"],
+          deliverables: [
+            "Chatbots y agentes",
+            "Pipelines RAG",
+            "Automatización de flujos",
+            "Integraciones a medida",
+          ],
           price: "$1,800 USD",
         },
         {
           title: "Consultoría / Auditoría de código",
           description: "Revisamos tu código y arquitectura para mejorar calidad y rendimiento.",
-          deliverables: ["Auditoría técnica", "Plan de mejora", "Refactorización", "Mentoría al equipo"],
+          deliverables: [
+            "Auditoría técnica",
+            "Plan de mejora",
+            "Refactorización",
+            "Mentoría al equipo",
+          ],
           price: "$120 USD/h",
         },
       ],
@@ -191,10 +228,19 @@ export const es = {
       title: "Proceso de trabajo",
       subtitle: "Un camino claro de principio a fin",
       steps: [
-        { title: "Descubrimiento", description: "Entendemos tus objetivos, usuarios y requisitos." },
+        {
+          title: "Descubrimiento",
+          description: "Entendemos tus objetivos, usuarios y requisitos.",
+        },
         { title: "Diseño", description: "Definimos la arquitectura, el flujo y la interfaz." },
-        { title: "Desarrollo", description: "Construimos con entregas iterativas y feedback continuo." },
-        { title: "Entrega y Soporte", description: "Desplegamos, capacitamos y damos soporte continuo." },
+        {
+          title: "Desarrollo",
+          description: "Construimos con entregas iterativas y feedback continuo.",
+        },
+        {
+          title: "Entrega y Soporte",
+          description: "Desplegamos, capacitamos y damos soporte continuo.",
+        },
       ],
     },
     testimonials: {
@@ -204,17 +250,20 @@ export const es = {
         {
           name: "María González",
           company: "Retail Nova",
-          quote: "Transformaron nuestra idea en una plataforma sólida en tiempo récord. Comunicación impecable.",
+          quote:
+            "Transformaron nuestra idea en una plataforma sólida en tiempo récord. Comunicación impecable.",
         },
         {
           name: "Carlos Méndez",
           company: "FinTech Labs",
-          quote: "La integración de IA superó nuestras expectativas. Recomiendo a Shadow360Solutions sin dudarlo.",
+          quote:
+            "La integración de IA superó nuestras expectativas. Recomiendo a Shadow360Solutions sin dudarlo.",
         },
         {
           name: "Laura Ramírez",
           company: "EduPlus",
-          quote: "Profesionales, claros y muy técnicos. Entendieron nuestro negocio desde el primer día.",
+          quote:
+            "Profesionales, claros y muy técnicos. Entendieron nuestro negocio desde el primer día.",
         },
       ],
     },
@@ -275,8 +324,7 @@ export const es = {
             requirements: ["Proyecto web full stack", "Diseño responsive"],
           },
           {
-            reply:
-              "Entendido. ¿Tienes una fecha objetivo o un presupuesto aproximado en mente?",
+            reply: "Entendido. ¿Tienes una fecha objetivo o un presupuesto aproximado en mente?",
             requirements: ["Autenticación de usuarios", "Panel de administración"],
           },
           {
@@ -296,7 +344,13 @@ export const es = {
       name: "Nombre",
       email: "Correo electrónico",
       projectType: "Tipo de proyecto",
-      projectTypes: ["Desarrollo Web", "App Multiplataforma", "Integración de IA", "Consultoría", "Otro"],
+      projectTypes: [
+        "Desarrollo Web",
+        "App Multiplataforma",
+        "Integración de IA",
+        "Consultoría",
+        "Otro",
+      ],
       message: "Mensaje",
       submit: "Enviar mensaje",
       submitting: "Enviando...",

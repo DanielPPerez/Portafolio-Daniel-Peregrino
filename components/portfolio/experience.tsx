@@ -1,8 +1,9 @@
 "use client"
 
-import { Award, Briefcase } from "lucide-react"
+import { Award, BadgeCheck, Briefcase, ExternalLink } from "lucide-react"
 import { Reveal } from "@/components/reveal"
 import { useLanguage } from "@/lib/i18n/language-context"
+import { certifications } from "@/lib/site-data"
 
 export function Experience() {
   const { t } = useLanguage()
@@ -11,7 +12,10 @@ export function Experience() {
     <section id="experiencia" className="py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <p className="font-mono text-sm text-neon-blue">// {t.experience.title}</p>
+          <p className="font-mono text-sm text-neon-blue">
+            {"// "}
+            {t.experience.title}
+          </p>
           <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{t.experience.title}</h2>
           <p className="mt-3 max-w-2xl text-white/60">{t.experience.subtitle}</p>
         </Reveal>
@@ -40,14 +44,25 @@ export function Experience() {
               <Award className="size-4" aria-hidden="true" />
               {t.experience.certificationsTitle}
             </h3>
-            <div className="flex flex-wrap gap-3">
-              {t.experience.certifications.map((cert) => (
-                <span
-                  key={cert}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80"
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {certifications.map((cert) => (
+                <a
+                  key={cert.name}
+                  href={cert.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-neon-purple/50 hover:bg-white/[0.07] hover:glow-border-purple"
                 >
-                  {cert}
-                </span>
+                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-neon-blue">
+                    <BadgeCheck className="size-4 shrink-0" aria-hidden="true" />
+                    {cert.issuer}
+                  </div>
+                  <p className="text-pretty font-medium leading-snug text-white">{cert.name}</p>
+                  <span className="mt-auto inline-flex items-center gap-1.5 text-sm text-white/55 transition-colors group-hover:text-neon-purple">
+                    {t.experience.viewCredential}
+                    <ExternalLink className="size-3.5" aria-hidden="true" />
+                  </span>
+                </a>
               ))}
             </div>
           </div>

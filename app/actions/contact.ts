@@ -7,6 +7,7 @@ export type ContactState = {
   fieldErrors?: ContactFieldErrors
 } | null
 
+/** Valida el formulario de contacto en el servidor y devuelve errores por campo o éxito. */
 export async function submitContact(
   _prev: ContactState,
   formData: FormData,
@@ -28,8 +29,9 @@ export async function submitContact(
     return { ok: false, fieldErrors }
   }
 
-  // En producción aquí se persistiría el lead o se enviaría un email.
-  console.log("[contact] New lead:", parsed.data)
+  // @sensitive el lead contiene PII (nombre/email/mensaje): no loguear su contenido.
+  // @sideffect en producción aquí se persistiría el lead o se enviaría un email.
+  console.log("[contact] new lead received")
 
   // Simular latencia de procesamiento.
   await new Promise((r) => setTimeout(r, 600))

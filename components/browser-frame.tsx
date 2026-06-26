@@ -67,10 +67,7 @@ export function BrowserFrame({
           <>
             {!loaded && (
               <div
-                className={cn(
-                  "absolute inset-0 animate-pulse",
-                  neon ? "bg-white/5" : "bg-muted",
-                )}
+                className={cn("absolute inset-0 animate-pulse", neon ? "bg-white/5" : "bg-muted")}
                 aria-hidden="true"
               />
             )}

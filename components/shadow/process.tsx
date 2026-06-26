@@ -34,7 +34,9 @@ export function ShadowProcess() {
                     <Icon className="size-5" aria-hidden="true" />
                   </div>
                   <h3 className="mt-4 font-semibold text-foreground">{step.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {step.description}
+                  </p>
                 </div>
               </Reveal>
             )

@@ -23,15 +23,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("es")
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? (localStorage.getItem(STORAGE_KEY) as Locale | null) : null
+    const stored =
+      typeof window !== "undefined" ? (localStorage.getItem(STORAGE_KEY) as Locale | null) : null
     if (stored === "es" || stored === "en") {
       setLocaleState(stored)
     }
   }, [])
 
+  /** Fija el idioma y persiste la preferencia. */
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next)
     try {
+      // @sideffect persiste la preferencia de idioma en localStorage
       localStorage.setItem(STORAGE_KEY, next)
     } catch {
       // ignore

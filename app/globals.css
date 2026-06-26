@@ -1,13 +1,13 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-sans: var(--font-geist-sans), "Geist Fallback";
+  --font-mono: var(--font-geist-mono), "Geist Mono Fallback";
   --color-neon-purple: var(--neon-purple);
   --color-neon-blue: var(--neon-blue);
   --color-neon-red: var(--neon-red);
@@ -149,17 +149,23 @@
 
 @layer utilities {
   .text-glow-purple {
-    text-shadow: 0 0 12px var(--neon-purple), 0 0 28px color-mix(in oklch, var(--neon-purple), transparent 50%);
+    text-shadow:
+      0 0 12px var(--neon-purple),
+      0 0 28px color-mix(in oklch, var(--neon-purple), transparent 50%);
   }
   .text-glow-blue {
-    text-shadow: 0 0 12px var(--neon-blue), 0 0 28px color-mix(in oklch, var(--neon-blue), transparent 50%);
+    text-shadow:
+      0 0 12px var(--neon-blue),
+      0 0 28px color-mix(in oklch, var(--neon-blue), transparent 50%);
   }
   .glow-border-purple {
-    box-shadow: 0 0 0 1px color-mix(in oklch, var(--neon-purple), transparent 40%),
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--neon-purple), transparent 40%),
       0 0 22px color-mix(in oklch, var(--neon-purple), transparent 70%);
   }
   .glow-border-blue {
-    box-shadow: 0 0 0 1px color-mix(in oklch, var(--neon-blue), transparent 40%),
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--neon-blue), transparent 40%),
       0 0 22px color-mix(in oklch, var(--neon-blue), transparent 70%);
   }
 }

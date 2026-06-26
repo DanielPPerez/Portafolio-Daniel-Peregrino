@@ -11,7 +11,10 @@ export function About() {
     <section id="acerca" className="py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <p className="font-mono text-sm text-neon-blue">// {t.about.title}</p>
+          <p className="font-mono text-sm text-neon-blue">
+            {"// "}
+            {t.about.title}
+          </p>
           <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{t.about.subtitle}</h2>
         </Reveal>
 
@@ -20,7 +23,9 @@ export function About() {
             <div className="relative mx-auto w-full max-w-xs">
               <div
                 className="absolute -inset-2 rounded-2xl opacity-50 blur-xl"
-                style={{ background: "linear-gradient(135deg, var(--neon-purple), var(--neon-blue))" }}
+                style={{
+                  background: "linear-gradient(135deg, var(--neon-purple), var(--neon-blue))",
+                }}
                 aria-hidden="true"
               />
               <div className="relative overflow-hidden rounded-2xl border border-white/10">

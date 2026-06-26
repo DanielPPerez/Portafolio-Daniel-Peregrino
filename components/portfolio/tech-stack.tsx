@@ -10,7 +10,10 @@ export function TechStack() {
     <section id="stack" className="border-y border-white/5 bg-white/[0.02] py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>
-          <p className="font-mono text-sm text-neon-blue">// {t.techStack.title}</p>
+          <p className="font-mono text-sm text-neon-blue">
+            {"// "}
+            {t.techStack.title}
+          </p>
           <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{t.techStack.title}</h2>
           <p className="mt-3 max-w-2xl text-white/60">{t.techStack.subtitle}</p>
         </Reveal>

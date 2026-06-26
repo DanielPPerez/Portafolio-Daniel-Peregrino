@@ -27,7 +27,9 @@ export function ShadowContactForm() {
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <Reveal>
           <div className="mx-auto max-w-xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{f.title}</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              {f.title}
+            </h2>
             <p className="mt-3 text-muted-foreground">{f.subtitle}</p>
           </div>
         </Reveal>
