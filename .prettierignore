@@ -1,0 +1,11 @@
+node_modules
+.next
+pnpm-lock.yaml
+public
+_project-standard
+CLAUDE.md
+AGENTS.md
+.claude
+.cursor
+.windsurf
+next-env.d.ts
