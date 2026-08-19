@@ -21,6 +21,6 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ### Added
 
-- Frontend completo del portafolio (`/`) y de Shadow360Solutions (`/shadow360`): hero, secciones, i18n es/en,
-  modo claro/oscuro en Shadow360, cotizador (UI sobre el puerto `QuoteEngine`), formulario con validación Zod,
+- Frontend completo del portafolio (`/`) y de RedFox_Solutions (`/RedFox_Solutions`): hero, secciones, i18n es/en,
+  modo claro/oscuro en RedFox_Solutions, cotizador (UI sobre el puerto `QuoteEngine`), formulario con validación Zod,
   cards de certificaciones con enlace a credenciales, transición overlay entre páginas y navbars responsive.

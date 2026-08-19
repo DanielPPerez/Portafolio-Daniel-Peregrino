@@ -22,16 +22,24 @@ export function ShadowHero() {
         }}
         aria-hidden="true"
       />
-      {/* Halo de acento púrpura→rojo */}
+      {/* Halo de acento rojo */}
       <div
         className="pointer-events-none absolute left-1/2 top-0 size-[40rem] -translate-x-1/2 rounded-full opacity-25 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, var(--neon-purple), var(--neon-red) 55%, transparent 75%)",
+            "radial-gradient(circle, var(--neon-red), var(--neon-red) 55%, transparent 75%)",
         }}
         aria-hidden="true"
       />
       <div className="relative mx-auto w-full max-w-3xl px-4 text-center sm:px-6">
+        <motion.img
+          src="/new_logo.png"
+          alt="RedFox_Solutions"
+          className="h-14 w-auto mx-auto mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        />
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -44,9 +52,11 @@ export function ShadowHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-6 bg-gradient-to-r from-[var(--neon-purple)] to-[var(--neon-red)] bg-clip-text text-balance text-4xl font-bold tracking-tight text-transparent sm:text-6xl"
+          className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl"
         >
-          {t.shadow.hero.name}
+          <span className="text-gray-900">Red</span>
+          <span className="ml-1 text-red-500">Fox</span>
+          <span className="ml-1 text-gray-900">Solutions</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 16 }}

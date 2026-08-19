@@ -13,6 +13,9 @@ const fallbacks: Record<string, string> = {
 
 export function Projects() {
   const { t } = useLanguage()
+  // console.log('t in Projects:', t)
+  // console.log('t.projects:', t.projects)
+  if (!t?.projects) return null
 
   return (
     <section id="proyectos" className="py-24">

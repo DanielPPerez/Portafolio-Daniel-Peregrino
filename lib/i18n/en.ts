@@ -1,4 +1,5 @@
 import type { Dictionary } from "./es"
+import { projects } from "../projects"
 
 export const en: Dictionary = {
   nav: {
@@ -8,7 +9,7 @@ export const en: Dictionary = {
     techStack: "Tech Stack",
     experience: "Experience",
     contact: "Contact",
-    shadowSolutions: "Shadow360Solutions",
+    shadowSolutions: "RedFox_Solutions",
     downloadCV: "Download CV",
     viewCV: "View CV",
     cvExpand: "Fullscreen",
@@ -27,7 +28,7 @@ export const en: Dictionary = {
     title: "By the numbers",
     items: [
       { value: 5, suffix: "+", label: "Years of experience" },
-      { value: 42, suffix: "+", label: "Completed projects" },
+      { value: projects.length, suffix: "+", label: "Completed projects" },
       { value: 25, suffix: "+", label: "Technologies mastered" },
       { value: 8, suffix: "", label: "Certifications" },
     ],
@@ -46,32 +47,7 @@ export const en: Dictionary = {
     title: "Projects",
     subtitle: "A selection of recent work with live preview",
     visit: "Visit site",
-    items: [
-      {
-        title: "Corporate Web Platform",
-        description:
-          "Full stack website with admin panel, blog and authentication. Built with Next.js and a microservices backend.",
-        url: "https://vercel.com",
-        tags: ["Next.js", "TypeScript", "PostgreSQL"],
-        type: "web",
-      },
-      {
-        title: "Figma Design System",
-        description:
-          "Complete design system based on Atomic Design with tokens, components and interactive documentation.",
-        url: "https://www.figma.com/community",
-        tags: ["Figma", "Design System", "Atomic Design"],
-        type: "figma",
-      },
-      {
-        title: "Indie Game on Itch.io",
-        description:
-          "2D game prototype with platformer mechanics, published on Itch.io for community feedback.",
-        url: "https://itch.io",
-        tags: ["GameDev", "Pixel Art", "WebGL"],
-        type: "game",
-      },
-    ],
+    items: projects,
   },
   techStack: {
     title: "Tech Stack",
@@ -167,8 +143,9 @@ export const en: Dictionary = {
       contact: "Contact",
       backToPortfolio: "Back to portfolio",
     },
+    shadowSolutions: "RedFox_Solutions",
     hero: {
-      name: "Shadow360Solutions",
+      name: "RedFox_Solutions",
       tagline: "Custom software development",
       description:
         "We're a full stack freelance team that designs, builds and integrates artificial intelligence into digital products that drive your business forward.",
@@ -251,7 +228,7 @@ export const en: Dictionary = {
           name: "Carlos Méndez",
           company: "FinTech Labs",
           quote:
-            "The AI integration exceeded our expectations. I recommend Shadow360Solutions without hesitation.",
+            "The AI integration exceeded our expectations. I recommend RedFox_Solutions without hesitation.",
         },
         {
           name: "Laura Ramírez",
@@ -302,7 +279,7 @@ export const en: Dictionary = {
       cta: "Book a call to refine the budget",
       disclaimer: "Demo: replies are sample responses. The final quote is confirmed after a call.",
       greeting:
-        "Hi! I'm the Shadow360Solutions assistant. Tell me in a sentence or two what project you have in mind and I'll help you estimate scope and cost.",
+        "Hi! I'm the RedFox_Solutions assistant. Tell me in a sentence or two what project you have in mind and I'll help you estimate scope and cost.",
       suggestions: [
         "Online store with payments",
         "iOS and Android mobile app",
@@ -344,17 +321,37 @@ export const en: Dictionary = {
         "Consulting",
         "Other",
       ],
+      projectName: "Project Name",
+      projectDescription: "Project Description",
+      projectScope: "Scope / Modules",
+      budget: "Budget",
+      timeline: "Timeline",
+      deliverables: "Deliverables",
+      additionalNotes: "Additional Notes",
       message: "Message",
       submit: "Send message",
       submitting: "Sending...",
       success: "Thank you! We've received your message and will contact you soon.",
       placeholderName: "Your name",
       placeholderEmail: "youremail@example.com",
+      placeholderProjectName: "Project name",
+      placeholderProjectDescription: "Describe your project",
+      placeholderProjectScope: "List main features or modules",
+      placeholderBudget: "e.g., $10,000 - $20,000",
+      placeholderTimeline: "Desired completion date",
+      placeholderDeliverables: "List expected deliverables",
+      placeholderAdditionalNotes: "Any other details or constraints",
       placeholderMessage: "Tell us what you need...",
       selectType: "Select an option",
       errors: {
         name: "Please enter your name",
         email: "Please enter a valid email",
+        projectName: "Please enter your project name",
+        projectDescription: "Please describe your project",
+        projectScope: "Please outline the scope",
+        budget: "Please provide a budget estimate",
+        timeline: "Please provide a timeline",
+        deliverables: "Please list expected deliverables",
         message: "Please write a message",
       },
     },
@@ -365,7 +362,7 @@ export const en: Dictionary = {
     contact: {
       title: "Contact",
       subtitle: "We're just one message away",
-      email: "hello@shadow360solutions.dev",
+      email: "hello@redfoxsolutions.dev",
       socials: "Follow us",
     },
     footer: {

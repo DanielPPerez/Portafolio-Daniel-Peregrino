@@ -1,3 +1,5 @@
+import { projects } from "../projects"
+
 export const es = {
   nav: {
     home: "Inicio",
@@ -6,7 +8,7 @@ export const es = {
     techStack: "Tech Stack",
     experience: "Experiencia",
     contact: "Contacto",
-    shadowSolutions: "Shadow360Solutions",
+    shadowSolutions: "RedFox_Solutions",
     downloadCV: "Descargar CV",
     viewCV: "Ver CV",
     cvExpand: "Pantalla completa",
@@ -25,7 +27,7 @@ export const es = {
     title: "En números",
     items: [
       { value: 5, suffix: "+", label: "Años de experiencia" },
-      { value: 42, suffix: "+", label: "Proyectos completados" },
+      { value: projects.length, suffix: "+", label: "Proyectos completados" },
       { value: 25, suffix: "+", label: "Tecnologías dominadas" },
       { value: 8, suffix: "", label: "Certificaciones" },
     ],
@@ -44,32 +46,7 @@ export const es = {
     title: "Proyectos",
     subtitle: "Una selección de trabajos recientes con previsualización en vivo",
     visit: "Ver sitio",
-    items: [
-      {
-        title: "Plataforma Web Corporativa",
-        description:
-          "Sitio web full stack con panel de administración, blog y autenticación. Construido con Next.js y un backend de microservicios.",
-        url: "https://vercel.com",
-        tags: ["Next.js", "TypeScript", "PostgreSQL"],
-        type: "web",
-      },
-      {
-        title: "Sistema de Diseño en Figma",
-        description:
-          "Sistema de diseño completo basado en Atomic Design con tokens, componentes y documentación interactiva.",
-        url: "https://www.figma.com/community",
-        tags: ["Figma", "Design System", "Atomic Design"],
-        type: "figma",
-      },
-      {
-        title: "Juego Indie en Itch.io",
-        description:
-          "Prototipo de juego 2D con mecánicas de plataformas, publicado en Itch.io para feedback de la comunidad.",
-        url: "https://itch.io",
-        tags: ["GameDev", "Pixel Art", "WebGL"],
-        type: "game",
-      },
-    ],
+    items: projects,
   },
   techStack: {
     title: "Tech Stack",
@@ -165,8 +142,9 @@ export const es = {
       contact: "Contacto",
       backToPortfolio: "Volver al portafolio",
     },
+    shadowSolutions: "RedFox_Solutions",
     hero: {
-      name: "Shadow360Solutions",
+      name: "RedFox_Solutions",
       tagline: "Desarrollo de software a medida",
       description:
         "Somos un equipo freelance full stack que diseña, construye e integra inteligencia artificial en productos digitales que impulsan tu negocio.",
@@ -187,7 +165,7 @@ export const es = {
             "Panel de administración",
             "Despliegue y soporte",
           ],
-          price: "$2,500 USD",
+          price: "$43,750 MXN",
         },
         {
           title: "Apps Multiplataforma",
@@ -198,7 +176,7 @@ export const es = {
             "Notificaciones push",
             "Publicación en stores",
           ],
-          price: "$3,500 USD",
+          price: "$61,250 MXN",
         },
         {
           title: "Integración de IA / Automatización",
@@ -209,7 +187,7 @@ export const es = {
             "Automatización de flujos",
             "Integraciones a medida",
           ],
-          price: "$1,800 USD",
+          price: "$31,500 MXN",
         },
         {
           title: "Consultoría / Auditoría de código",
@@ -220,7 +198,7 @@ export const es = {
             "Refactorización",
             "Mentoría al equipo",
           ],
-          price: "$120 USD/h",
+          price: "$2,100 MXN/h",
         },
       ],
     },
@@ -257,7 +235,7 @@ export const es = {
           name: "Carlos Méndez",
           company: "FinTech Labs",
           quote:
-            "La integración de IA superó nuestras expectativas. Recomiendo a Shadow360Solutions sin dudarlo.",
+            "La integración de IA superó nuestras expectativas. Recomiendo a RedFox_Solutions sin dudarlo.",
         },
         {
           name: "Laura Ramírez",
@@ -309,7 +287,7 @@ export const es = {
       disclaimer:
         "Demo: las respuestas son de ejemplo. La cotización final se confirma tras una llamada.",
       greeting:
-        "¡Hola! Soy el asistente de Shadow360Solutions. Cuéntame en una o dos frases qué proyecto tienes en mente y te ayudo a estimar alcance y costo.",
+        "¡Hola! Soy el asistente de RedFox_Solutions. Cuéntame en una o dos frases qué proyecto tienes en mente y te ayudo a estimar alcance y costo.",
       suggestions: [
         "Tienda online con pagos",
         "App móvil iOS y Android",
@@ -351,17 +329,37 @@ export const es = {
         "Consultoría",
         "Otro",
       ],
+      projectName: "Nombre del proyecto",
+      projectDescription: "Descripción del proyecto",
+      projectScope: "Alcance / Módulos",
+      budget: "Presupuesto aproximado",
+      timeline: "Fecha de entrega deseada",
+      deliverables: "Entregables esperados",
+      additionalNotes: "Notas adicionales",
       message: "Mensaje",
       submit: "Enviar mensaje",
       submitting: "Enviando...",
       success: "¡Gracias! Hemos recibido tu mensaje y te contactaremos pronto.",
       placeholderName: "Tu nombre",
       placeholderEmail: "tucorreo@ejemplo.com",
+      placeholderProjectName: "Nombre del proyecto",
+      placeholderProjectDescription: "Describe tu proyecto en detalle",
+      placeholderProjectScope: "Lista las funcionalidades o módulos principales",
+      placeholderBudget: "Ej: $10,000 - $20,000 MXN",
+      placeholderTimeline: "Fecha esperada de finalización",
+      placeholderDeliverables: "Lista lo que esperas recibir",
+      placeholderAdditionalNotes: "Cualquier otro detalle o restricción",
       placeholderMessage: "Cuéntanos qué necesitas...",
       selectType: "Selecciona una opción",
       errors: {
         name: "Por favor ingresa tu nombre",
         email: "Por favor ingresa un correo válido",
+        projectName: "Por favor ingresa el nombre del proyecto",
+        projectDescription: "Por favor describe tu proyecto",
+        projectScope: "Por favor describe el alcance del proyecto",
+        budget: "Por favor proporciona un presupuesto estimado",
+        timeline: "Por favor proporciona una fecha de entrega estimada",
+        deliverables: "Por favor lista los entregables esperados",
         message: "Por favor escribe un mensaje",
       },
     },
@@ -372,7 +370,7 @@ export const es = {
     contact: {
       title: "Contacto",
       subtitle: "Estamos a un mensaje de distancia",
-      email: "hola@shadow360solutions.dev",
+      email: "hola@redfoxsolutions.dev",
       socials: "Síguenos",
     },
     footer: {

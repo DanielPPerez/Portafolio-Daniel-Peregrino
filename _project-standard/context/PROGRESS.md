@@ -1,3 +1,9 @@
+git add README.md \
+          _project-standard/context/AI_CONTEXT.md \
+          _project-standard/context/PROGRESS.md \
+          _project-standard/context/DECISIONS.md \
+          BACKEND_SETUP.md \
+          .env.example
 # PROGRESS — diario de sesiones
 
 > Una entrada **al cerrar cada sesión**. Es el handoff: la siguiente IA lee la última entrada y sabe dónde retomar.
@@ -5,14 +11,12 @@
 
 ---
 
-<!-- Plantilla de entrada (copiar arriba de las anteriores)
-## AAAA-MM-DD — <IA / persona>
-- **Hecho:** <...>
-- **En curso:** <archivo/función + estado>
-- **Próximo paso:** <acción concreta>
-- **Decisiones:** <ADR-00X o "ninguna">
-- **Bloqueos / dudas:** <...>
--->
+## 2026-08-18 — Claude (Claude Code)
+- **Hecho:** actualizado documentación viva (README.md, AI_CONTEXT.md, PROGRESS.md, DECISIONS.md, BACKEND_SETUP.md, .env.example) para reflejar estado real del código: cotizador conectado a Gemini (LLM real), formulario de contacto usa Gmail API con etiqueta automática “REDFOX”, esquema de Supabase listo (migrations y seeds) para integración futura, variables de entorno actualizadas.
+- **En curso:** documentación viva actualizada.
+- **Próximo paso:** continuar con desarrollo de características pendientes (tests, auditores, integración Supabase) si se requiere.
+- **Decisiones:** ADR-0007 (uso de Gemini para cotizador).
+- **Bloqueos / dudas:** ninguno.
 
 ## 2026-06-25 — Claude (Claude Code)
 - **Hecho:** se aplicó `_project-standard` al repo (alcance "Base recomendada"): copia del estándar dentro del repo,

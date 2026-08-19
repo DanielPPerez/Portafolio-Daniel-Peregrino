@@ -2,6 +2,7 @@
   "name": "my-project",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,14 +23,19 @@
     ]
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
     "@base-ui/react": "^1.5.0",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
     "@vercel/analytics": "1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
+    "googleapis": "^173.0.0",
     "lucide-react": "^1.16.0",
     "next": "16.2.6",
     "next-themes": "^0.4.6",
+    "nodemailer": "^9.0.3",
     "react": "^19",
     "react-dom": "^19",
     "shadcn": "^4.8.0",
@@ -43,6 +49,7 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.9",
     "eslint-config-prettier": "^10.1.8",
@@ -51,6 +58,7 @@
     "postcss": "^8.5",
     "prettier": "^3.8.4",
     "tailwindcss": "^4.2.0",
+    "ts-node": "^10.9.2",
     "typescript": "5.7.3"
   }
 }

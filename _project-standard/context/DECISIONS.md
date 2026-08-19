@@ -11,7 +11,7 @@
 - Fecha: AAAA-MM-DD
 - Estado: propuesto | aceptado | reemplazado por ADR-00Y
 - Contexto: <qué problema/situación lo motiva>
-- Decisión: <qué se decidió>
+- Decisión: <qué se decidiu>
 - Opciones consideradas: <alternativas y por qué se descartaron>
 - Consecuencias: <qué facilita, qué cuesta, qué deuda genera>
 ```
@@ -22,7 +22,7 @@
 - Fecha: 2026-06-25
 - Estado: aceptado
 - Contexto: portafolio personal + landing de agencia; proyecto frontend-only, escala baja (sitio estático), equipo de 1.
-- Decisión: Next.js 16 App Router con dos rutas (`/`, `/shadow360`) y componentes organizados por feature
+- Decisión: Next.js 16 App Router con dos rutas (`/`, `/RedFox_Solutions`) y componentes organizados por feature
   (`components/portfolio/`, `components/shadow/`, `components/ui/`). Lógica desacoplada en `lib/`.
 - Opciones consideradas: SPA con Vite (descartado: peor SEO/SSG y dos "mundos" en una sola página);
   estructura por tipo en vez de por feature (descartado: menos cohesión al crecer).
@@ -51,7 +51,7 @@
 - Fecha: 2026-06-25
 - Estado: aceptado
 - Contexto: el cotizador debe ser solo-UI hoy, pero conectarse a un LLM (Claude) después sin reescribir la UI.
-- Decisión: definir la interfaz `QuoteEngine` (`lib/quote/types.ts`); la UI depende de ella; hoy se inyecta un
+- Decisión: definir la interfaz `QuoteEngine` (`lib/quote/types.ts`) ; la UI depende de ella; hoy se inyecta un
   `createMockQuoteEngine` (`lib/quote/mock-engine.ts`). Mañana, un adaptador real (route handler → Claude) implementa
   la misma interfaz.
 - Consecuencias: cambiar a LLM real = nuevo adaptador, sin tocar `quote-chat.tsx`.
@@ -74,5 +74,13 @@
 - Decisión: montar `ThemeProvider` en `app/layout.tsx` (persiste entre navegaciones); el portafolio queda oscuro
   hardcodeado y el toggle de tema solo afecta a Shadow360.
 - Consecuencias: sin warning de hidratación/script; tema global gestionado en un solo lugar.
+
+## ADR-0007 — Cotizador usa Gemini (Google) en lugar de Claude
+- Fecha: 2026-08-18
+- Estado: aceptado
+- Contexto: el ADR-0004 previa la posibilidad de conectar un LLM real (Claude) mediante un adapter que implemente QuoteEngine. Durante la implementación se decidió usar la API de Gemini de Google por facilidad de acceso y costo, manteniendo el mismo puerto QuoteEngine. La implementación real está en `lib/quote/claude.ts` (aunque el nombre hace referencia a Claude, en realidad llama a Gemini) y la route handler `app/api/quote/route.ts` llama a dicha función.
+- Decisión: usar Gemini (modelo `gemini-1.5-pro-latest` configurable vía `GEMINI_MODEL`) como motor de cotizador IA, con fallback al motor mock cuando falta `GOOGLE_API_KEY`. Mantener la interfaz QuoteEngine permite cambiar a otro LLM en el futuro sin modificar la UI.
+- Opciones consideradas: mantener la adaptación a Claude (requeriría `ANTHROPIC_API_KEY`), usar otro proveedor (OpenAI, etc.). Se descartó Claude porque ya se tenía acceso a Gemini y se quería evitar múltiples claves de API.
+- Consecuencias: el cotizador ahora usa un LLM real (Gemini) proporcionando respuestas dinámicas; el nombre del archivo `claude.ts` es engañoso pero se mantiene por compatibilidad; se puede renombrar en el futuro. La UI no cambia porque depende del puerto QuoteEngine.
 
 <!-- Próximos ADRs van debajo -->

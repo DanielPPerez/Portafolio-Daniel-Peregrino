@@ -1,29 +1,17 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ArrowRight, RotateCcw, Send, Sparkles } from "lucide-react"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Reveal } from "@/components/reveal"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { createMockQuoteEngine } from "@/lib/quote/mock-engine"
-import type { ChatMessage, Estimate } from "@/lib/quote/types"
+import type { ChatMessage, Estimate, QuoteTurn } from "@/lib/quote/types"
 
 export function QuoteChat() {
   const { t, locale } = useLanguage()
   const q = t.shadow.quote
-
-  // La UI depende del contrato QuoteEngine, no del mock concreto: cambiar a Claude
-  // más adelante solo implica sustituir esta factory.
-  const engine = useMemo(
-    () =>
-      createMockQuoteEngine({
-        script: q.script,
-        servicePrices: t.shadow.services.items.map((s) => s.price),
-      }),
-    [q.script, t.shadow.services.items],
-  )
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     { role: "assistant", content: q.greeting },
@@ -38,12 +26,70 @@ export function QuoteChat() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" })
   }, [messages, loading])
 
+  // Función para autollenar el formulario de contacto con los datos de la conversación
+  const fillContactForm = () => {
+    // Evitar que el enlace haga scroll inmediato; lo haremos después de rellenar
+    // Selecciona el formulario de contacto (asumiendo que existe)
+    const contactForm = document.querySelector("section#contacto form")
+    if (!contactForm) return
+
+    // Construir un resumen de la conversación para la descripción
+    const userMessages = messages
+      .filter((m) => m.role === "user")
+      .map((m) => m.content.trim())
+      .filter(Boolean)
+    const description =
+      userMessages.length > 0 ? userMessages.join(" ") : "Descripción del proyecto desde el chat"
+
+    // Llenar campos (si existen)
+    const setInputValue = (name: string, value: string) => {
+      const input = contactForm.elements.namedItem(name) as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | null
+      if (input) {
+        input.value = value
+        // Disparar eventos para que React-hook-form o similar pueda escuchar
+        input.dispatchEvent(new Event("input", { bubbles: true }))
+        input.dispatchEvent(new Event("change", { bubbles: true }))
+      }
+    }
+
+    // Llenar campos conocidos
+    setInputValue("projectName", "Proyecto desde consulta")
+    setInputValue("projectDescription", description)
+    setInputValue("projectScope", "Definir alcance basado en conversación")
+    setInputValue("budget", "")
+    setInputValue("timeline", "")
+    setInputValue("deliverables", "")
+    setInputValue("additionalNotes", "")
+    // Mantener el tipo de proyecto tal como está (selección predeterminada)
+    // Desplazar al formulario
+    contactForm.closest("section#contacto")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   const formatMoney = (value: number, currency: string) =>
     new Intl.NumberFormat(locale === "es" ? "es-MX" : "en-US", {
       style: "currency",
       currency,
       maximumFractionDigits: 0,
     }).format(value)
+
+  // Llamada al endpoint de la API (que a su vez usa Claude o fallback)
+  async function requestTurn(history: ChatMessage[]): Promise<QuoteTurn> {
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ history, locale }),
+      })
+      if (res.ok) return (await res.json()) as QuoteTurn
+    } catch {
+      // si falla, el cliente mostrará un error genérico desde el servidor
+    }
+    // Si llegamos aquí, el servidor respondió con error o no está configurado
+    throw new Error("Error al contacting quote service")
+  }
 
   async function send(text: string) {
     const content = text.trim()
@@ -53,7 +99,7 @@ export function QuoteChat() {
     setInput("")
     setLoading(true)
     try {
-      const turn = await engine.send(next)
+      const turn = await requestTurn(next)
       setMessages((prev) => [...prev, { role: "assistant", content: turn.reply }])
       setRequirements(turn.requirements)
       if (turn.estimate) setEstimate(turn.estimate)
@@ -204,8 +250,11 @@ export function QuoteChat() {
                       {formatMoney(estimate.max, estimate.currency)}
                     </p>
                     <p className="mt-2 text-xs text-muted-foreground">{q.negotiable}</p>
-                    <a
-                      href="#contacto"
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        fillContactForm()
+                      }}
                       className={cn(
                         buttonVariants(),
                         "mt-4 w-full bg-brand text-brand-foreground hover:bg-brand/90",
@@ -213,7 +262,7 @@ export function QuoteChat() {
                     >
                       {q.cta}
                       <ArrowRight className="size-4" aria-hidden="true" />
-                    </a>
+                    </button>
                   </>
                 ) : (
                   <p className="mt-2 text-sm text-muted-foreground">{q.emptyRequirements}</p>
