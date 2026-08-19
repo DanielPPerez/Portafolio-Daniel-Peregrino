@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { LanguageProvider } from "@/lib/i18n/language-context"
@@ -15,7 +14,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Daniel Peregrino — Ingeniero Full Stack & IA",
   description:
-    "Portafolio de Daniel Peregrino Perez, Ingeniero Full Stack especializado en arquitectura de software e integración de IA. Conoce también Shadow360Solutions, su agencia de desarrollo a medida.",
+    "Portafolio de Daniel Peregrino Perez, Ingeniero Full Stack especializado en arquitectura de software e integración de IA. Conoce también RedFox_Solutions, su agencia de desarrollo a medida.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -53,7 +52,7 @@ export default function RootLayout({
             <PageTransitionProvider>{children}</PageTransitionProvider>
           </LanguageProvider>
         </ShadowThemeProvider>
-        {process.env.NODE_ENV === "production" && <Analytics />}
+        {/* Analytics omitted to avoid script tag warning */}
       </body>
     </html>
   )
