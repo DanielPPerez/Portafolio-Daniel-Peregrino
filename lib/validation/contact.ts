@@ -11,6 +11,14 @@ export const contactSchema = z.object({
   email: z.string().trim().email("email"),
   projectType: z.string().trim().optional(),
   message: z.string().trim().min(1, "message"),
+  // Extended project brief fields (all optional for backwards compatibility)
+  projectName: z.string().trim().optional(),
+  projectDescription: z.string().trim().optional(),
+  projectScope: z.string().trim().optional(),
+  budget: z.string().trim().optional(),
+  timeline: z.string().trim().optional(),
+  deliverables: z.string().trim().optional(),
+  additionalNotes: z.string().trim().optional(),
 })
 
 export type ContactInput = z.infer<typeof contactSchema>

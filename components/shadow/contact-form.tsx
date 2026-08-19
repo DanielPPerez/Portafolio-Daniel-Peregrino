@@ -91,6 +91,114 @@ export function ShadowContactForm() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* New fields */}
+              <div className="grid gap-2">
+                <Label htmlFor="projectName">{f.projectName}</Label>
+                <Input
+                  id="projectName"
+                  name="projectName"
+                  placeholder={f.placeholderProjectName}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.projectName}
+                />
+                {state?.fieldErrors?.projectName && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.projectName}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="projectDescription">{f.projectDescription}</Label>
+                <Textarea
+                  id="projectDescription"
+                  name="projectDescription"
+                  placeholder={f.placeholderProjectDescription}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.projectDescription}
+                />
+                {state?.fieldErrors?.projectDescription && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.projectDescription}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="projectScope">{f.projectScope}</Label>
+                <Textarea
+                  id="projectScope"
+                  name="projectScope"
+                  placeholder={f.placeholderProjectScope}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.projectScope}
+                />
+                {state?.fieldErrors?.projectScope && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.projectScope}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="budget">{f.budget}</Label>
+                <Input
+                  id="budget"
+                  name="budget"
+                  placeholder={f.placeholderBudget}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.budget}
+                />
+                {state?.fieldErrors?.budget && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.budget}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="timeline">{f.timeline}</Label>
+                <Input
+                  id="timeline"
+                  name="timeline"
+                  placeholder={f.placeholderTimeline}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.timeline}
+                />
+                {state?.fieldErrors?.timeline && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.timeline}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="deliverables">{f.deliverables}</Label>
+                <Textarea
+                  id="deliverables"
+                  name="deliverables"
+                  placeholder={f.placeholderDeliverables}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.deliverables}
+                />
+                {state?.fieldErrors?.deliverables && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.deliverables}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="additionalNotes">{f.additionalNotes}</Label>
+                <Textarea
+                  id="additionalNotes"
+                  name="additionalNotes"
+                  placeholder={f.placeholderAdditionalNotes}
+                  required
+                  aria-invalid={!!state?.fieldErrors?.additionalNotes}
+                />
+                {state?.fieldErrors?.additionalNotes && (
+                  <p role="alert" className="text-sm text-destructive">
+                    {f.errors.additionalNotes}
+                  </p>
+                )}
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="message">{f.message}</Label>
                 <Textarea
