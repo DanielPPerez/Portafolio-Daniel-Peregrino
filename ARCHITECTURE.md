@@ -8,7 +8,7 @@
 Aplicación **Next.js 16 (App Router)**, frontend-only, con dos rutas que son dos "mundos":
 
 - `/` — **Portafolio personal** (estética oscura/neón).
-- `/shadow360` — **Shadow360Solutions**, la agencia (estética clara con acentos púrpura/rojo, modo claro/oscuro).
+- `/RedFox_Solutions` — **RedFox_Solutions**, la agencia (estética clara con acentos púrpura/rojo, modo claro/oscuro).
 
 No hay backend, base de datos ni API propia todavía (ver ADR-0001 y ADR-0002). Despliegue en Vercel.
 
@@ -18,12 +18,12 @@ No hay backend, base de datos ni API propia todavía (ver ADR-0001 y ADR-0002). 
 app/
   layout.tsx          # Providers (Theme → Language → PageTransition), fuentes, metadata
   page.tsx            # Portafolio (/)
-  shadow360/page.tsx  # Shadow360Solutions (/shadow360)
+  RedFox_Solutions/page.tsx  # RedFox_Solutions (/RedFox_Solutions)
   globals.css         # Tokens de tema + utilidades (neón, glow)
   actions/contact.ts  # Server action del formulario (valida con Zod)
 components/
   portfolio/          # Secciones del portafolio (hero, about, projects, experience, ...)
-  shadow/             # Secciones de Shadow360 (hero, services, quote-chat, faq, ...)
+  shadow/             # Secciones de RedFox_Solutions (hero, services, quote-chat, faq, ...)
   ui/                 # Primitivos shadcn sobre Base UI (button, dialog, card, ...)
   icons/              # Iconos SVG de marca (social, tiktok)
   page-transition.tsx # Overlay slide entre rutas (provider + hook)
