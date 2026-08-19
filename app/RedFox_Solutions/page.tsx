@@ -11,7 +11,13 @@ import { ShadowFooter } from "@/components/shadow/footer"
 
 export default function Shadow360Page() {
   return (
-    <div className="min-h-screen scroll-smooth bg-background text-foreground">
+    <div
+      className="min-h-screen scroll-smooth bg-background text-foreground"
+      style={{
+        "--brand": "var(--neon-red)",
+        "--brand-foreground": "#fff",
+      }}
+    >
       <ShadowNavbar />
       <main>
         <ShadowHero />
