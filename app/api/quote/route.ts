@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         const num = price.replace(/,/g, "").match(/\d+(\.\d+)?/)
         return num !== null ? Number(num[0]) : null
       })
-      .filter((num): number => num !== null)
+      .filter((num): boolean => num !== null)
       .map((usd) => `$${Math.round(usd / 18.5)} USD`)
       .filter(Boolean) as string[]
 
