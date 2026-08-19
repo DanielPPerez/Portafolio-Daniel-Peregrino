@@ -1,5 +1,5 @@
 import { z } from "zod"
-import type { ChatMessage, QuoteTurn } from "./types"
+import type { ChatMessage, QuoteTurn, Estimate } from "./types"
 
 /** Indica si el cotizador con IA está configurado (hay API key de Gemini). */
 export function isQuoteAiConfigured(): boolean {
@@ -177,22 +177,26 @@ export async function runQuoteTurn(
       throw new Error("Model output does not match expected schema")
     }
 
-    // Si estimate es un objeto pero le faltan campos obligatorios, lo tratamos como null (información insuficiente)
-    let estimate = validated.data.estimate
-    if (estimate !== null && estimate !== undefined && typeof estimate === "object") {
-      if (
-        estimate.min === undefined ||
-        estimate.max === undefined ||
-        estimate.currency === undefined
-      ) {
-        estimate = null
+    // Si estimate es un objeto válido con todos los campos obligatorios, lo asignamos; si no, queda como undefined
+    let estimate: Estimate | undefined = undefined
+    const rawEstimate = validated.data.estimate
+    if (
+      rawEstimate &&
+      typeof rawEstimate.min === "number" &&
+      typeof rawEstimate.max === "number" &&
+      typeof rawEstimate.currency === "string"
+    ) {
+      estimate = {
+        min: rawEstimate.min,
+        max: rawEstimate.max,
+        currency: rawEstimate.currency,
       }
     }
 
     return {
       reply: validated.data.reply,
       requirements: validated.data.requirements,
-      estimate: estimate ?? undefined,
+      estimate,
     }
   } catch (err) {
     console.error("Error in quote generation:", err)

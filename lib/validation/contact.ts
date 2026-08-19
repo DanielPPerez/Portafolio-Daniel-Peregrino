@@ -22,4 +22,4 @@ export const contactSchema = z.object({
 })
 
 export type ContactInput = z.infer<typeof contactSchema>
-export type ContactFieldErrors = Partial<Record<"name" | "email" | "message", string>>
+export type ContactFieldErrors = Partial<Record<keyof ContactInput, string>>

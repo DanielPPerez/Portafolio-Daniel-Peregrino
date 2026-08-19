@@ -30,7 +30,7 @@ export function QuoteChat() {
   const fillContactForm = () => {
     // Evitar que el enlace haga scroll inmediato; lo haremos después de rellenar
     // Selecciona el formulario de contacto (asumiendo que existe)
-    const contactForm = document.querySelector("section#contacto form")
+    const contactForm = document.querySelector("section#contacto form") as HTMLFormElement | null
     if (!contactForm) return
 
     // Construir un resumen de la conversación para la descripción

@@ -360,6 +360,7 @@ export const es = {
         budget: "Por favor proporciona un presupuesto estimado",
         timeline: "Por favor proporciona una fecha de entrega estimada",
         deliverables: "Por favor lista los entregables esperados",
+        additionalNotes: "Por favor proporciona notas adicionales si aplica",
         message: "Por favor escribe un mensaje",
       },
     },

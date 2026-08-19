@@ -352,6 +352,7 @@ export const en: Dictionary = {
         budget: "Please provide a budget estimate",
         timeline: "Please provide a timeline",
         deliverables: "Please list expected deliverables",
+        additionalNotes: "Please provide additional notes if applicable",
         message: "Please write a message",
       },
     },
