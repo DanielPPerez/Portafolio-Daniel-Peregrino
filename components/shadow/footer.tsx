@@ -20,8 +20,13 @@ export function ShadowFooter() {
     <footer className="border-t border-border bg-card">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col items-center gap-6 text-center">
-          <Link href="/shadow360" className="text-lg font-bold tracking-tight text-foreground">
-            Shadow<span className="text-brand">360</span>Solutions
+          <Link
+            href="/RedFox_Solutions"
+            className="text-lg font-bold tracking-tight text-foreground"
+          >
+            <span className="text-foreground">Red</span>
+            <span className="text-red-500">Fox</span>
+            <span className="text-foreground">Solutions</span>
           </Link>
           <p className="max-w-md text-pretty text-sm text-muted-foreground">
             {t.shadow.footer.tagline}
@@ -36,7 +41,9 @@ export function ShadowFooter() {
             {t.shadow.nav.backToPortfolio}
           </Link>
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Shadow360Solutions. {t.shadow.footer.rights}
+            &copy; {new Date().getFullYear()} <span className="text-foreground">Red</span>
+            <span className="text-red-500">Fox</span>
+            <span className="text-foreground">Solutions</span>. {t.shadow.footer.rights}
           </p>
         </div>
       </div>

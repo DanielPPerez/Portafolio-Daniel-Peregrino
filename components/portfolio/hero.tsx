@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import { MatrixRain } from "@/components/matrix-rain"
-import { Button } from "@/components/ui/button"
 import { CvButton } from "@/components/cv-button"
 import { useLanguage } from "@/lib/i18n/language-context"
 
@@ -52,14 +51,6 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-8 flex flex-wrap items-center gap-3"
         >
-          <Button
-            render={<a href="#proyectos" />}
-            nativeButton={false}
-            size="lg"
-            className="bg-neon-purple text-white hover:bg-neon-purple/90 glow-border-purple"
-          >
-            {t.hero.ctaProjects}
-          </Button>
           {/* Ver CV (modal) + Descargar CV */}
           <CvButton />
         </motion.div>

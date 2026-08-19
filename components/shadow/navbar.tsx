@@ -63,14 +63,16 @@ export function ShadowNavbar() {
             className="relative size-9"
           >
             <Image
-              src="/logo.png"
-              alt="Shadow360Solutions"
+              src="/new_logo.png"
+              alt="RedFox_Solutions"
               fill
               sizes="36px"
               className="object-contain"
             />
           </motion.span>
-          Shadow360Solutions
+          <span className="text-foreground">Red</span>
+          <span className="text-red-500">Fox</span>
+          <span className="text-foreground">Solutions</span>
         </a>
 
         {/* Secciones — centradas (en flujo normal, no se solapan) */}

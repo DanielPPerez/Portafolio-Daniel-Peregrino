@@ -23,7 +23,7 @@ export function usePageTransition() {
  * se desliza fuera (slide-out) revelando la nueva página.
  *
  * Dirección:
- *  - "left"  (ir a /shadow360): entra desde la derecha → sale por la izquierda.
+ *  - "left"  (ir a /RedFox_Solutions): entra desde la derecha → sale por la izquierda.
  *  - "right" (volver a /):        entra desde la izquierda → sale por la derecha.
  */
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
@@ -79,11 +79,11 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
           animate={{ x: phase === "cover" ? "0%" : revealTo }}
           transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           onAnimationComplete={handleComplete}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-neon-purple via-[#0c0c12] to-neon-blue"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-neon-purple via-[#0c0c12] to-[#ff3b30]"
           style={{ willChange: "transform" }}
         >
           <span className="font-mono text-2xl font-bold tracking-[0.3em] text-white/90 text-glow-purple sm:text-4xl">
-            {dir === "left" ? "Shadow360Solutions" : "DP"}
+            {dir === "left" ? "RedFox_Solutions" : "DP"}
           </span>
         </motion.div>
       )}
