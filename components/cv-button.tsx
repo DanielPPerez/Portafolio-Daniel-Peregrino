@@ -28,9 +28,9 @@ export function CvButton() {
         <DialogTrigger
           render={
             <Button
-              size="sm"
+              size="lg"
               variant="outline"
-              className="border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+              className="border-border bg-card text-foreground hover:bg-accent hover:text-foreground shadow-sm transition-colors"
             />
           }
         >
@@ -82,7 +82,7 @@ export function CvButton() {
             <Button
               render={<a href={cvPath} download />}
               nativeButton={false}
-              size="sm"
+              size="lg"
               className="bg-neon-purple text-white hover:bg-neon-purple/90"
             >
               <Download className="size-4" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function CvButton() {
       <Button
         render={<a href={cvPath} download />}
         nativeButton={false}
-        size="sm"
+        size="lg"
         className="bg-neon-purple text-white hover:bg-neon-purple/90"
       >
         <Download className="size-4" aria-hidden="true" />

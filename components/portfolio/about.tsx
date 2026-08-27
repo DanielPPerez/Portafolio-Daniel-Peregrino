@@ -15,7 +15,9 @@ export function About() {
             {"// "}
             {t.about.title}
           </p>
-          <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl">{t.about.subtitle}</h2>
+          <h2 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl">
+            {t.about.subtitle}
+          </h2>
         </Reveal>
 
         <div className="mt-12 grid items-start gap-10 lg:grid-cols-[320px_1fr]">
@@ -28,7 +30,7 @@ export function About() {
                 }}
                 aria-hidden="true"
               />
-              <div className="relative overflow-hidden rounded-2xl border border-white/10">
+              <div className="relative overflow-hidden rounded-2xl border border-border">
                 <Image
                   src="/images/avatar.png"
                   alt="Daniel Peregrino Perez"
@@ -44,7 +46,7 @@ export function About() {
           <Reveal delay={0.15}>
             <div className="space-y-5">
               {t.about.paragraphs.map((p, i) => (
-                <p key={i} className="text-pretty leading-relaxed text-white/70">
+                <p key={i} className="text-pretty leading-relaxed text-foreground/70">
                   {p}
                 </p>
               ))}
@@ -52,7 +54,7 @@ export function About() {
                 {t.about.highlights.map((h) => (
                   <span
                     key={h}
-                    className="rounded-full border border-neon-purple/30 bg-neon-purple/10 px-3 py-1 text-sm text-white/80"
+                    className="rounded-full border border-neon-purple/30 bg-neon-purple/10 px-3 py-1 text-sm text-foreground/80"
                   >
                     {h}
                   </span>

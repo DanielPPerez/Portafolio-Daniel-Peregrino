@@ -11,7 +11,7 @@ import { Footer } from "@/components/portfolio/footer"
 
 export default function Page() {
   return (
-    <div className="min-h-screen scroll-smooth bg-[#08080c] text-white">
+    <div className="min-h-screen scroll-smooth bg-background text-foreground">
       <PortfolioNavbar />
       <main>
         <Hero />

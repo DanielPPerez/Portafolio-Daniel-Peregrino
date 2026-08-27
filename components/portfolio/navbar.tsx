@@ -5,6 +5,7 @@ import Link from "next/link"
 import { ArrowRight, Menu, X } from "lucide-react"
 import { useLanguage } from "@/lib/i18n/language-context"
 import { LanguageToggle } from "@/components/language-toggle"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { usePageTransition } from "@/components/page-transition"
 import { cn } from "@/lib/utils"
 
@@ -53,7 +54,7 @@ export function PortfolioNavbar() {
     <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300 border-b border-transparent bg-transparent">
       <nav className="relative flex h-[4.4rem] w-full items-center gap-4 px-4 sm:px-6 lg:px-8">
         {/* DP — extremo izquierdo */}
-        <a href="#inicio" className="shrink-0 text-white text-glow-purple">
+        <a href="#inicio" className="shrink-0 text-foreground text-glow-purple">
           DP
         </a>
 
@@ -65,7 +66,9 @@ export function PortfolioNavbar() {
                 href={`#${link.id}`}
                 className={cn(
                   "relative whitespace-nowrap rounded-md px-3.5 py-2 text-[0.95rem] transition-colors",
-                  active === link.id ? "text-white" : "text-white/60 hover:text-white",
+                  active === link.id
+                    ? "text-foreground"
+                    : "text-foreground/60 hover:text-foreground",
                 )}
               >
                 {link.label}
@@ -80,14 +83,15 @@ export function PortfolioNavbar() {
         {/* Cluster derecho — ES/EN y RedFox_Solutions al extremo derecho */}
         <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-0">
           <LanguageToggle className="hidden sm:inline-flex" />
+          <ThemeToggle />
           <Link
             href="/RedFox_Solutions"
             onClick={goShadow}
             className="hidden items-center gap-1.5 whitespace-nowrap rounded-full border border-neon-blue/40 bg-neon-blue/10 px-5 py-2 text-[0.95rem] font-medium text-neon-blue transition-all hover:glow-border-blue hover:bg-neon-blue/20 md:inline-flex"
           >
-            <span className="text-white">Red</span>
+            <span className="text-foreground">Red</span>
             <span className="text-red-500">Fox</span>
-            <span className="text-white">Solutions</span>
+            <span className="text-foreground">Solutions</span>
             <ArrowRight className="size-[18px]" aria-hidden="true" />
           </Link>
           <button
@@ -95,7 +99,7 @@ export function PortfolioNavbar() {
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
-            className="inline-flex size-10 items-center justify-center rounded-md border border-white/10 bg-white/5 text-white xl:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-md border border-white/10 bg-white/5 text-foreground xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -113,7 +117,7 @@ export function PortfolioNavbar() {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "block rounded-md px-3 py-2 text-sm",
-                    active === link.id ? "bg-background/10 text-white" : "text-white/60",
+                    active === link.id ? "bg-background/10 text-foreground" : "text-foreground/60",
                   )}
                 >
                   {link.label}
@@ -127,13 +131,14 @@ export function PortfolioNavbar() {
               onClick={goShadow}
               className="flex items-center justify-center gap-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-4 py-2 text-center text-sm font-medium text-neon-blue"
             >
-              <span className="text-white">Red</span>
+              <span className="text-foreground">Red</span>
               <span className="text-red-500">Fox</span>
-              <span className="text-white">Solutions</span>
+              <span className="text-foreground">Solutions</span>
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <div className="flex items-center justify-between">
               <LanguageToggle />
+              <ThemeToggle />
             </div>
           </div>
         </div>

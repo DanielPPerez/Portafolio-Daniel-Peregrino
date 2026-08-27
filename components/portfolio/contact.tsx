@@ -15,14 +15,16 @@ export function Contact() {
             {"// "}
             {t.contact.title}
           </p>
-          <h2 className="mt-2 text-3xl font-bold text-white sm:text-4xl text-glow-purple">
+          <h2 className="mt-2 text-3xl font-bold text-foreground sm:text-4xl text-glow-purple">
             {t.contact.title}
           </h2>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 flex flex-col items-center gap-4">
-            <p className="text-sm uppercase tracking-wider text-white/40">{t.contact.socials}</p>
+            <p className="text-sm uppercase tracking-wider text-foreground/40">
+              {t.contact.socials}
+            </p>
             <SocialBar variant="neon" />
           </div>
         </Reveal>

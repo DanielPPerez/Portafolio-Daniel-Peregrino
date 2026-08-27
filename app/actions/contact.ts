@@ -27,6 +27,8 @@ oauth2Client.setCredentials({
 
 const gmail = google.gmail({ version: "v1", auth: oauth2Client })
 
+// @todo consider migrating to transactional email provider (Resend, SendGrid) if Gmail OAuth flow remains fragile
+
 /**
  * Aplica una etiqueta a un correo recientemente enviado en Gmail
  * (requiere que el correo ya exista en la cuenta)
@@ -75,7 +77,7 @@ export async function submitContact(
   _prev: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
-  // Validación del formulario (mantuvimos los campos originales por compatibilidad)
+  // Validación del formulario (incluye los nuevos campos)
   const parsed = contactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -89,6 +91,8 @@ export async function submitContact(
     timeline: formData.get("timeline") ?? "",
     deliverables: formData.get("deliverables") ?? "",
     additionalNotes: formData.get("additionalNotes") ?? "",
+    phone: formData.get("phone") ?? "",
+    socialLinks: formData.get("socialLinks"),
   })
 
   if (!parsed.success) {
@@ -112,7 +116,21 @@ export async function submitContact(
     timeline,
     deliverables,
     additionalNotes,
+    phone,
+    socialLinks,
   } = parsed.data
+
+  // Parse socialLinks from JSON string if needed
+  let socialLinksArray: Array<{ platform: string; value: string }> = []
+  if (typeof socialLinks === "string") {
+    try {
+      socialLinksArray = JSON.parse(socialLinks)
+    } catch {
+      socialLinksArray = []
+    }
+  } else if (Array.isArray(socialLinks)) {
+    socialLinksArray = socialLinks
+  }
 
   try {
     // ---------- 1. Envío del correo vía Gmail ----------
@@ -134,6 +152,8 @@ export async function submitContact(
           ${timeline ? `<p><strong>Fecha de entrega deseada:</strong> ${timeline}</p>` : ""}
           ${deliverables ? `<p><strong>Entregables esperados:</strong><br/>${deliverables}</p>` : ""}
           ${additionalNotes ? `<p><strong>Notas adicionales:</strong><br/>${additionalNotes}</p>` : ""}
+          ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ""}
+          ${socialLinksArray.length > 0 ? `<p><strong>Redes sociales:</strong><br/>${socialLinksArray.map((link) => `${link.platform}: ${link.value}`).join("<br/>")}</p>` : ""}
 
           <p><strong>Mensaje original:</strong><br/>${message}</p>
           <hr style="border: 1px solid #eee; margin: 20px 0;">
@@ -201,9 +221,24 @@ export async function submitContact(
 
     // ---------- 4. Respuesta de éxito ----------
     return { ok: true }
-  } catch (error) {
-    console.error("❌ Error al procesar el formulario de contacto:", error)
-    // En caso de error crítico, devolvemos fallo para que la UI muestre error
+  } catch (error: unknown) {
+    // Detectar error específico de Gmail: invalid_grant (token revocado/expirado)
+    const errObj = error as { error?: { errors?: Array<{ reason?: string }> }; message?: string }
+    const isInvalidGrant =
+      errObj?.error?.errors?.[0]?.reason === "invalid_grant" ||
+      (typeof error === "object" &&
+        error !== null &&
+        "message" in error &&
+        String(errObj.message).includes("invalid_grant"))
+
+    if (isInvalidGrant) {
+      // Log claro para el desarrollador, sin exponer credenciales
+      console.error("❌ Gmail refresh token inválido o revocado — necesita reautenticación manual")
+    } else {
+      console.error("❌ Error al procesar el formulario de contacto:", error)
+    }
+
+    // Devolver siempre un mensaje genérico al usuario (nunca filtrar detalles internos)
     return {
       ok: false,
       fieldErrors: {

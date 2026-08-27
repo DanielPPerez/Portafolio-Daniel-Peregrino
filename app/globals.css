@@ -88,8 +88,8 @@
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.708 0 0);
 }
 
@@ -136,9 +136,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
     scroll-behavior: smooth;
@@ -147,25 +149,86 @@
   }
 }
 
+/* En tu archivo global.css o agregado al componente */
+.tech-card-glow {
+  position: relative;
+}
+
+.tech-card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1rem;
+  background: linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.tech-card-glow:hover::before {
+  opacity: 1;
+}
+
 @layer utilities {
   .text-glow-purple {
     text-shadow:
       0 0 12px var(--neon-purple),
       0 0 28px color-mix(in oklch, var(--neon-purple), transparent 50%);
   }
+
   .text-glow-blue {
     text-shadow:
       0 0 12px var(--neon-blue),
       0 0 28px color-mix(in oklch, var(--neon-blue), transparent 50%);
   }
+
   .glow-border-purple {
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--neon-purple), transparent 40%),
       0 0 22px color-mix(in oklch, var(--neon-purple), transparent 70%);
   }
+
   .glow-border-blue {
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--neon-blue), transparent 40%),
       0 0 22px color-mix(in oklch, var(--neon-blue), transparent 70%);
   }
+}
+
+/* View Transition circular ripple animation ("gota en un charco") */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: 0.55s cubic-bezier(0.25, 1, 0.5, 1) ripple-expand both;
+  mix-blend-mode: normal;
+}
+
+@keyframes ripple-expand {
+  from {
+    clip-path: circle(0px at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  }
+
+  to {
+    clip-path: circle(var(--ripple-radius, 120vmax) at var(--ripple-x, 50%) var(--ripple-y, 50%));
+  }
+}
+
+/* Slide-in animation for Hero text displacement */
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+.animate-hero-slidein {
+  animation: slidein 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
