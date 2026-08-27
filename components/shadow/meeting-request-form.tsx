@@ -14,11 +14,8 @@ import {
 } from "@/components/ui/select"
 import { Reveal } from "@/components/reveal"
 import { useLanguage } from "@/lib/i18n/language-context"
-import {
-  submitMeetingRequest,
-  type MeetingRequestState,
-  type MeetingRequestInput,
-} from "@/app/actions/meeting-request"
+import { submitMeetingRequest, type MeetingRequestState } from "@/app/actions/meeting-request"
+import type { MeetingRequestInput } from "@/lib/validation/meeting-request"
 
 export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: string) => void }) {
   const { t } = useLanguage()
@@ -43,12 +40,12 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
 
   // Handle changes for primitive fields
   const handleChange = (field: keyof MeetingRequestInput, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev: MeetingRequestInput) => ({ ...prev, [field]: value }))
   }
 
   // Social links handling
   const handleSocialChange = (index: number, field: "platform" | "value", value: string) => {
-    setFormData((prev) => {
+    setFormData((prev: MeetingRequestInput) => {
       const currentLinks = prev.socialLinks || []
       const newLinks = [...currentLinks]
       if (newLinks[index]) {
@@ -64,7 +61,7 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
   const addSocialLink = () => {
     const currentLinks = formData.socialLinks || []
     if (currentLinks.length < 3) {
-      setFormData((prev) => ({
+      setFormData((prev: MeetingRequestInput) => ({
         ...prev,
         socialLinks: [...(prev.socialLinks || []), { platform: "whatsapp", value: "" }],
       }))
@@ -74,7 +71,7 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
   const removeSocialLink = (index: number) => {
     const currentLinks = formData.socialLinks || []
     if (currentLinks.length > 1) {
-      setFormData((prev) => {
+      setFormData((prev: MeetingRequestInput) => {
         const newLinks = [...(prev.socialLinks || [])]
         newLinks.splice(index, 1)
         return { ...prev, socialLinks: newLinks }
