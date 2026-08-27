@@ -22,7 +22,7 @@ export function Experience() {
 
   // Determinar si es un PDF
   const isPdf = (cert: (typeof certifications)[0]) => {
-    return cert.url.toLowerCase().endsWith(".pdf")
+    return cert.isPdf || cert.url?.toLowerCase().endsWith(".pdf")
   }
 
   return (

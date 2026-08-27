@@ -108,7 +108,7 @@ export function PortfolioNavbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-border/20 bg-background/90 px-4 py-4 backdrop-blur-md xl:hidden">
+        <div className="border-t border-border bg-background/95 px-4 py-4 backdrop-blur-md xl:hidden">
           <ul className="flex flex-col gap-1">
             {links.map((link) => (
               <li key={link.id}>
@@ -125,7 +125,8 @@ export function PortfolioNavbar() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <LanguageToggle variant="sober" />
             <Link
               href="/RedFox_Solutions"
               onClick={goShadow}
@@ -136,10 +137,6 @@ export function PortfolioNavbar() {
               <span className="text-foreground">Solutions</span>
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
-            <div className="flex items-center justify-between">
-              <LanguageToggle />
-              <ThemeToggle />
-            </div>
           </div>
         </div>
       )}

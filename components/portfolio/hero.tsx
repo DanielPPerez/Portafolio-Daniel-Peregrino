@@ -32,7 +32,7 @@ export function Hero() {
         onClick={() => setShowCards((prev) => !prev)}
         aria-label={showCards ? "Ocultar tarjetas" : "Desplegar tarjetas"}
         title={showCards ? "Ocultar tarjetas" : "Desplegar tarjetas"}
-        className="fixed lg:absolute right-4 sm:right-6 top-1/2 z-30 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-neon-purple/60 bg-background/80 text-foreground backdrop-blur-md shadow-[0_0_18px_var(--neon-purple)] transition-all hover:scale-110 hover:border-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple"
+        className="absolute right-4 sm:right-6 top-1/2 z-30 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-neon-purple/60 bg-background/80 text-foreground backdrop-blur-md shadow-[0_0_18px_var(--neon-purple)] transition-all hover:scale-110 hover:border-neon-purple focus:outline-none focus:ring-2 focus:ring-neon-purple"
       >
         {showCards ? (
           <ChevronRight className="size-6 text-neon-purple" />
