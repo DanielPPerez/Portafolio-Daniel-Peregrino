@@ -1,81 +1,44 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, type CSSProperties } from "react"
 
 interface ThemeTransitionProps {
-  isActive: boolean
-  origin: { x: number; y: number }
-  isDark: boolean
+  origin: { x: number; y: number; fromDark: boolean }
   onComplete: () => void
 }
 
-export function ThemeTransition({ isActive, origin, isDark, onComplete }: ThemeTransitionProps) {
-  const [radius, setRadius] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+/**
+ * Velo decorativo del cambio de tema (paint-first).
+ *
+ * El contenido real ya está en el tema nuevo desde el primer frame (la llamada
+ * a `setTheme` ocurre antes de montar este componente). Este div pinta el color
+ * del tema ANTERIOR y se encoge con `clip-path` desde pantalla-completa hasta el
+ * punto del click, "revelando" el tema nuevo. Es animación CSS pura (clip-path),
+ * desacoplada por completo del costo de re-renderizar componentes pesados.
+ */
+export function ThemeTransition({ origin, onComplete }: ThemeTransitionProps) {
+  const veilRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isActive && typeof window !== "undefined") {
-      const maxDim = Math.max(window.innerWidth, window.innerHeight)
-      setRadius(maxDim * 1.5)
-      // Pequeño retraso para que el click se registre bien
-      const timer = setTimeout(() => setIsVisible(true), 50)
-      return () => clearTimeout(timer)
-    } else {
-      setIsVisible(false)
+    const el = veilRef.current
+    if (!el) return
+    const handleEnd = (e: AnimationEvent) => {
+      if (e.animationName === "theme-veil-reveal") {
+        onComplete()
+      }
     }
-  }, [isActive])
+    el.addEventListener("animationend", handleEnd)
+    return () => el.removeEventListener("animationend", handleEnd)
+  }, [onComplete])
 
-  const bgColor = isDark ? "#0a0a0a" : "#ffffff"
+  // Color de fondo del tema que se está abandonando, igual que las variables CSS.
+  const bg = origin.fromDark ? "oklch(0.145 0 0)" : "oklch(1 0 0)"
 
-  return (
-    <AnimatePresence>
-      {isActive && isVisible && (
-        <>
-          {/* Overlay semi-transparente para suavizar la transición */}
-          <motion.div
-            className="fixed inset-0 z-[9998] pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{ backgroundColor: bgColor }}
-          />
+  const style = {
+    background: bg,
+    "--veil-x": `${origin.x}px`,
+    "--veil-y": `${origin.y}px`,
+  } as CSSProperties
 
-          {/* Círculo de expansión */}
-          <motion.div
-            className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <motion.div
-              className="absolute rounded-full"
-              style={{
-                top: origin.y,
-                left: origin.x,
-                backgroundColor: bgColor,
-                transform: "translate(-50%, -50%)",
-                width: 0,
-                height: 0,
-              }}
-              animate={{
-                width: radius * 2,
-                height: radius * 2,
-              }}
-              transition={{
-                duration: 0.5, // Reducido de 0.7 a 0.5
-                ease: [0.4, 0, 0.2, 1], // Easing más rápido
-              }}
-              onAnimationComplete={() => {
-                // Pequeño retraso antes de completar para asegurar el renderizado
-                setTimeout(onComplete, 100)
-              }}
-            />
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  )
+  return <div ref={veilRef} aria-hidden="true" className="theme-veil" style={style} />
 }

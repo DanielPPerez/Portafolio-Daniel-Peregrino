@@ -11,6 +11,7 @@
   --color-neon-purple: var(--neon-purple);
   --color-neon-blue: var(--neon-blue);
   --color-neon-red: var(--neon-red);
+  --color-surface-tinted: var(--surface-tinted);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -83,6 +84,8 @@
   --neon-red: oklch(0.63 0.25 22);
   --brand: oklch(0.52 0.2 300);
   --brand-foreground: oklch(0.98 0 0);
+  /* Shared tinted section background — light: soft purple tint, slightly darker */
+  --surface-tinted: oklch(0.92 0.022 285);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -130,6 +133,8 @@
   --neon-red: oklch(0.66 0.25 22);
   --brand: oklch(0.66 0.22 300);
   --brand-foreground: oklch(0.16 0 0);
+  /* Shared tinted section background — dark: deep blue-black matching Tech Stack palette */
+  --surface-tinted: oklch(0.09 0.012 285);
 }
 
 @layer base {
@@ -195,24 +200,30 @@
   }
 }
 
-/* View Transition circular ripple animation ("gota en un charco") */
-::view-transition-old(root) {
-  animation: none;
-  mix-blend-mode: normal;
+/* Velo decorativo del cambio de tema (paint-first): el contenido ya cambió;
+   este div pinta el tema anterior y se encoge vía clip-path hasta el punto del click. */
+.theme-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: clip-path;
+  animation: theme-veil-reveal 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-::view-transition-new(root) {
-  animation: 0.55s cubic-bezier(0.25, 1, 0.5, 1) ripple-expand both;
-  mix-blend-mode: normal;
-}
-
-@keyframes ripple-expand {
+@keyframes theme-veil-reveal {
   from {
-    clip-path: circle(0px at var(--ripple-x, 50%) var(--ripple-y, 50%));
+    clip-path: circle(140vmax at var(--veil-x, 50%) var(--veil-y, 50%));
   }
 
   to {
-    clip-path: circle(var(--ripple-radius, 120vmax) at var(--ripple-x, 50%) var(--ripple-y, 50%));
+    clip-path: circle(0px at var(--veil-x, 50%) var(--veil-y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-veil {
+    animation: none;
   }
 }
 

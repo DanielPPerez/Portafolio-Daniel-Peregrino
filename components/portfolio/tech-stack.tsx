@@ -294,10 +294,7 @@ export function TechStack() {
   const { t } = useLanguage()
 
   return (
-    <section
-      id="stack"
-      className="border-y border-border bg-gradient-to-b from-[#0a0a12] to-[#0d0d15] py-28 overflow-hidden"
-    >
+    <section id="stack" className="border-y border-border bg-surface-tinted py-28 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal>
           <p className="font-mono text-sm text-neon-blue">
@@ -332,7 +329,7 @@ export function TechStack() {
                             {getTechIcon(tech)}
                           </div>
                         </div>
-                        <span className="line-clamp-2 text-xs sm:text-sm font-semibold leading-tight text-foreground/70 transition-colors duration-300 group-hover/tech:text-foreground/90">
+                        <span className="line-clamp-2 text-xs sm:text-sm font-semibold leading-tight text-white/70 transition-colors duration-300 group-hover/tech:text-white/90">
                           {tech}
                         </span>
                       </div>

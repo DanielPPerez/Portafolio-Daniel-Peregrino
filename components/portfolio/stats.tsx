@@ -11,7 +11,7 @@ export function Stats() {
   // if (!t?.stats) return null
 
   return (
-    <section id="estadisticas" className="border-y border-border bg-white/[0.02] py-16">
+    <section id="estadisticas" className="border-y border-border bg-surface-tinted py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {t.stats?.items.map((stat, index) => {

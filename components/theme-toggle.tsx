@@ -9,9 +9,7 @@ import { ThemeTransition } from "@/components/theme-transition"
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme()
   const buttonRef = useRef<HTMLButtonElement>(null)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [transitionOrigin, setTransitionOrigin] = useState({ x: 0, y: 0 })
-  const [targetTheme, setTargetTheme] = useState(false)
+  const [veil, setVeil] = useState<{ x: number; y: number; fromDark: boolean } | null>(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -30,24 +28,22 @@ export function ThemeToggle() {
   const isDark = resolvedTheme === "dark"
 
   const handleToggle = () => {
-    if (isTransitioning) return
-
     const rect = buttonRef.current?.getBoundingClientRect()
     const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2
     const y = rect ? rect.top + rect.height / 2 : window.innerHeight / 2
 
     const newTheme = isDark ? "light" : "dark"
-    setTransitionOrigin({ x, y })
-    setTargetTheme(newTheme === "dark")
-    setIsTransitioning(true)
-  }
 
-  const handleTransitionComplete = () => {
-    setTheme(targetTheme ? "dark" : "light")
-    // Pequeño delay para que el cambio de tema ocurra después de la animación
-    setTimeout(() => {
-      setIsTransitioning(false)
-    }, 100)
+    // Paint-first: aplica el tema inmediatamente (variables CSS). El contenido
+    // se recolorea desde el primer frame sin bloquear el hilo principal.
+    setTheme(newTheme)
+
+    // Velo puramente decorativo. Con prefers-reduced-motion no se monta siquiera.
+    const reduceMotion =
+      typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (!reduceMotion) {
+      setVeil({ x, y, fromDark: isDark })
+    }
   }
 
   return (
@@ -57,7 +53,6 @@ export function ThemeToggle() {
         variant="ghost"
         size="icon"
         onClick={handleToggle}
-        disabled={isTransitioning}
         className="relative"
       >
         <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -65,12 +60,7 @@ export function ThemeToggle() {
         <span className="sr-only">Toggle theme</span>
       </Button>
 
-      <ThemeTransition
-        isActive={isTransitioning}
-        origin={transitionOrigin}
-        isDark={targetTheme}
-        onComplete={handleTransitionComplete}
-      />
+      {veil && <ThemeTransition origin={veil} onComplete={() => setVeil(null)} />}
     </>
   )
 }

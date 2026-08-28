@@ -82,7 +82,7 @@ export function PortfolioNavbar() {
 
         {/* Cluster derecho — ES/EN y RedFox_Solutions al extremo derecho */}
         <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-0">
-          <LanguageToggle className="hidden sm:inline-flex" />
+          <LanguageToggle variant="sober" className="hidden sm:inline-flex" />
           <ThemeToggle />
           <Link
             href="/RedFox_Solutions"
