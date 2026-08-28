@@ -34,6 +34,7 @@ export type Certification = {
   name: string
   url: string
   imageUrl?: string // Opcional para badges visuales
+  isPdf?: boolean // true cuando la URL apunta a un PDF de credencial
 }
 
 // Certificaciones con enlace a la badge virtual.

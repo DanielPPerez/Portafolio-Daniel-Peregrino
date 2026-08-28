@@ -14,11 +14,8 @@ import {
 } from "@/components/ui/select"
 import { Reveal } from "@/components/reveal"
 import { useLanguage } from "@/lib/i18n/language-context"
-import {
-  submitMeetingRequest,
-  type MeetingRequestState,
-  type MeetingRequestInput,
-} from "@/app/actions/meeting-request"
+import { submitMeetingRequest, type MeetingRequestState } from "@/app/actions/meeting-request"
+import { type MeetingRequestInput } from "@/lib/validation/meeting-request"
 
 export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: string) => void }) {
   const { t } = useLanguage()
@@ -43,12 +40,12 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
 
   // Handle changes for primitive fields
   const handleChange = (field: keyof MeetingRequestInput, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev: MeetingRequestInput) => ({ ...prev, [field]: value }))
   }
 
   // Social links handling
   const handleSocialChange = (index: number, field: "platform" | "value", value: string) => {
-    setFormData((prev) => {
+    setFormData((prev: MeetingRequestInput) => {
       const currentLinks = prev.socialLinks || []
       const newLinks = [...currentLinks]
       if (newLinks[index]) {
@@ -64,9 +61,9 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
   const addSocialLink = () => {
     const currentLinks = formData.socialLinks || []
     if (currentLinks.length < 3) {
-      setFormData((prev) => ({
+      setFormData((prev: MeetingRequestInput) => ({
         ...prev,
-        socialLinks: [...(prev.socialLinks || []), { platform: "whatsapp", value: "" }],
+        socialLinks: [...(prev.socialLinks || []), { platform: "whatsapp" as const, value: "" }],
       }))
     }
   }
@@ -74,7 +71,7 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
   const removeSocialLink = (index: number) => {
     const currentLinks = formData.socialLinks || []
     if (currentLinks.length > 1) {
-      setFormData((prev) => {
+      setFormData((prev: MeetingRequestInput) => {
         const newLinks = [...(prev.socialLinks || [])]
         newLinks.splice(index, 1)
         return { ...prev, socialLinks: newLinks }
@@ -187,42 +184,56 @@ export function MeetingRequestForm({ onApproval }: { onApproval: (bookingUrl: st
               <div className="grid gap-2">
                 <Label htmlFor="socialLinks">{f.socialLinks ?? "Redes sociales"}</Label>
                 <div className="space-y-2">
-                  {(formData.socialLinks || []).map((link, idx) => (
-                    <div key={idx} className="flex flex-col sm:flex-row sm:space-x-2 sm:items-end">
-                      <Select
-                        value={link.platform}
-                        onValueChange={(v) => handleSocialChange(idx, "platform", v ?? "")}
+                  {(formData.socialLinks || []).map(
+                    (
+                      link: {
+                        platform: "whatsapp" | "instagram" | "linkedin" | "other"
+                        value: string
+                      },
+                      idx: number,
+                    ) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col sm:flex-row sm:space-x-2 sm:items-end"
                       >
-                        <SelectTrigger id={`social-platform-${idx}`} className="flex-1 sm:max-w-xs">
-                          <SelectValue placeholder="Plataforma" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {["whatsapp", "instagram", "linkedin", "other"].map((p) => (
-                            <SelectItem key={p} value={p}>
-                              {p.charAt(0).toUpperCase() + p.slice(1)}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <Input
-                        value={link.value}
-                        onChange={(e) => handleSocialChange(idx, "value", e.target.value)}
-                        placeholder={f.socialLinksPlaceholder ?? "Valor o URL"}
-                        className="flex-1"
-                        required
-                      />
-                      {(formData.socialLinks || []).length > 1 && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeSocialLink(idx)}
-                          className="ml-2 self-end"
+                        <Select
+                          value={link.platform}
+                          onValueChange={(v) => handleSocialChange(idx, "platform", v ?? "")}
                         >
-                          <Send className="size-3" aria-hidden="true" />
-                        </Button>
-                      )}
-                    </div>
-                  ))}
+                          <SelectTrigger
+                            id={`social-platform-${idx}`}
+                            className="flex-1 sm:max-w-xs"
+                          >
+                            <SelectValue placeholder="Plataforma" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {["whatsapp", "instagram", "linkedin", "other"].map((p) => (
+                              <SelectItem key={p} value={p}>
+                                {p.charAt(0).toUpperCase() + p.slice(1)}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Input
+                          value={link.value}
+                          onChange={(e) => handleSocialChange(idx, "value", e.target.value)}
+                          placeholder={f.socialLinksPlaceholder ?? "Valor o URL"}
+                          className="flex-1"
+                          required
+                        />
+                        {(formData.socialLinks || []).length > 1 && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeSocialLink(idx)}
+                            className="ml-2 self-end"
+                          >
+                            <Send className="size-3" aria-hidden="true" />
+                          </Button>
+                        )}
+                      </div>
+                    ),
+                  )}
                   <Button
                     type="button"
                     onClick={addSocialLink}
