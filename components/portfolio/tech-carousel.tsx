@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const AUTOPLAY_INTERVAL_MS = 3500
 const SWIPE_THRESHOLD_PX = 40
+const MOBILE_BREAKPOINT = 768
 
 type TechCarouselProps = {
   children: React.ReactNode[]
@@ -15,7 +16,9 @@ export function TechCarousel({ children }: TechCarouselProps) {
   const count = slides.length
   const [rotationIndex, setRotationIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
-  const [viewportWidth, setViewportWidth] = useState(1200)
+  const [viewportWidth, setViewportWidth] = useState(
+    typeof window === "undefined" ? 1200 : window.innerWidth,
+  )
   const [isMounted, setIsMounted] = useState(false)
   const viewportRef = useRef<HTMLDivElement>(null)
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -25,6 +28,10 @@ export function TechCarousel({ children }: TechCarouselProps) {
 
   useEffect(() => {
     setIsMounted(true)
+    const update = () => setViewportWidth(window.innerWidth)
+    update()
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
   }, [])
 
   useEffect(() => {
@@ -35,20 +42,8 @@ export function TechCarousel({ children }: TechCarouselProps) {
     return () => mq.removeEventListener("change", handler)
   }, [])
 
-  useEffect(() => {
-    if (!viewportRef.current) return
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.contentRect.width > 0) {
-          setViewportWidth(entry.contentRect.width)
-        }
-      }
-    })
-    observer.observe(viewportRef.current)
-    return () => observer.disconnect()
-  }, [])
-
   const activeIndex = ((rotationIndex % count) + count) % count
+  const isMobile = viewportWidth < MOBILE_BREAKPOINT
 
   const startAutoplay = useCallback(() => {
     if (autoplayRef.current) clearInterval(autoplayRef.current)
@@ -108,32 +103,94 @@ export function TechCarousel({ children }: TechCarouselProps) {
     touchStartXRef.current = null
   }
 
-  // DIMENSIONES MÁS GRANDES para mejor legibilidad
-  const cellWidth = Math.min(
-    viewportWidth * 0.85, // Más ancho (era 0.72)
-    viewportWidth < 640 ? 380 : 780, // Más grande en móvil y desktop
+  const arrows = (
+    <>
+      <button
+        type="button"
+        aria-label="Área anterior"
+        onClick={prevSlide}
+        className="absolute left-1 sm:left-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-neon-purple/60 bg-[#0c0c14]/90 p-2 sm:p-4 text-neon-purple shadow-[0_0_30px_rgba(168,85,247,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-neon-purple hover:bg-[#141424] focus:outline-none focus:ring-2 focus:ring-neon-purple"
+      >
+        <ChevronLeft className="h-5 w-5 sm:h-7 sm:w-7 text-neon-purple" />
+      </button>
+      <button
+        type="button"
+        aria-label="Área siguiente"
+        onClick={nextSlide}
+        className="absolute right-1 sm:right-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-neon-purple/60 bg-[#0c0c14]/90 p-2 sm:p-4 text-neon-purple shadow-[0_0_30px_rgba(168,85,247,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-neon-purple hover:bg-[#141424] focus:outline-none focus:ring-2 focus:ring-neon-purple"
+      >
+        <ChevronRight className="h-5 w-5 sm:h-7 sm:w-7 text-neon-purple" />
+      </button>
+    </>
   )
-  const angleStep = 360 / Math.max(1, count)
-  const ringRadius = Math.max(280, cellWidth / (2 * Math.tan(Math.PI / Math.max(1, count))))
 
-  const formatValue = (value: number, decimals = 3) => {
-    return Number(value.toFixed(decimals))
-  }
-
-  const formattedRingRadius = formatValue(ringRadius)
-  const formattedCellWidth = formatValue(cellWidth)
+  const dots = (
+    <div className="mt-6 flex justify-center items-center gap-3 sm:mt-8">
+      {slides.map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          aria-label={`Ir al área ${i + 1}`}
+          onClick={() => goToSlide(i)}
+          className={`h-3 rounded-full transition-all duration-300 ${
+            i === activeIndex
+              ? "w-10 bg-neon-purple shadow-[0_0_16px_var(--neon-purple)]"
+              : "w-3 bg-white/20 hover:bg-white/40"
+          }`}
+        />
+      ))}
+    </div>
+  )
 
   if (!isMounted) {
     return (
       <div className="relative w-full py-6 select-none">
-        <div className="relative mx-auto h-[34rem] sm:h-[38rem] w-full max-w-7xl overflow-visible">
-          <div className="relative h-full w-full flex items-center justify-center">
-            <div className="text-foreground/40">Cargando carrusel...</div>
-          </div>
-        </div>
+        <div className="relative mx-auto min-h-48 w-full max-w-7xl" />
       </div>
     )
   }
+
+  // Móvil / tablet: slider 2D de una card completa (sin anillo 3D).
+  if (isMobile) {
+    return (
+      <div
+        className="relative w-full py-4 select-none"
+        onMouseEnter={pauseAutoplay}
+        onMouseLeave={startAutoplay}
+      >
+        {arrows}
+        <div
+          ref={viewportRef}
+          className="relative mx-auto w-full overflow-hidden px-10"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+          >
+            {slides.map((slide, i) => (
+              <div key={i} className="w-full min-w-0 shrink-0" aria-hidden={i !== activeIndex}>
+                {slide}
+              </div>
+            ))}
+          </div>
+        </div>
+        {dots}
+      </div>
+    )
+  }
+
+  const isTablet = viewportWidth < 1024
+  const cellWidth = isTablet
+    ? Math.min(viewportWidth * 0.62, 520)
+    : Math.min(viewportWidth * 0.72, 780)
+  const angleStep = 360 / Math.max(1, count)
+  const derivedRadius = cellWidth / (2 * Math.tan(Math.PI / Math.max(1, count)))
+  const ringRadius = isTablet ? Math.max(220, derivedRadius) : Math.max(280, derivedRadius)
+  const perspectivePx = isTablet ? 1200 : 1800
+  const formattedRingRadius = Number(ringRadius.toFixed(3))
+  const formattedCellWidth = Number(cellWidth.toFixed(3))
 
   return (
     <div
@@ -143,18 +200,12 @@ export function TechCarousel({ children }: TechCarouselProps) {
       onFocus={pauseAutoplay}
       onBlur={startAutoplay}
     >
-      <button
-        type="button"
-        aria-label="Área anterior"
-        onClick={prevSlide}
-        className="absolute left-2 sm:left-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-neon-purple/60 bg-[#0c0c14]/90 p-4 text-neon-purple shadow-[0_0_30px_rgba(168,85,247,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-neon-purple hover:bg-[#141424] focus:outline-none focus:ring-2 focus:ring-neon-purple"
-      >
-        <ChevronLeft className="h-7 w-7 text-neon-purple" />
-      </button>
+      {arrows}
 
       <div
         ref={viewportRef}
-        className="relative mx-auto h-[34rem] sm:h-[38rem] w-full max-w-7xl overflow-visible [perspective:1800px]"
+        className="relative mx-auto h-[34rem] w-full max-w-7xl overflow-hidden lg:h-[38rem] lg:overflow-visible"
+        style={{ perspective: `${perspectivePx}px` }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onMouseDown={handleTouchStart}
@@ -176,12 +227,6 @@ export function TechCarousel({ children }: TechCarouselProps) {
             const isSide = Math.abs(diff) === 1
             const isVisible = Math.abs(diff) <= 1.5
 
-            const opacity = isFront ? 1 : isSide ? 0.6 : 0.05
-            const filter = isFront ? "none" : "brightness(0.6) blur(1px)"
-            const pointerEvents = isFront ? "auto" : "none"
-            const visibility = isVisible ? "visible" : "hidden"
-            const scale = isFront ? 1 : isSide ? 0.95 : 0.9
-
             return (
               <div
                 key={i}
@@ -190,44 +235,21 @@ export function TechCarousel({ children }: TechCarouselProps) {
                 style={{
                   left: "50%",
                   width: `${formattedCellWidth}px`,
-                  transform: `translateX(-50%) rotateY(${cellAngle}deg) translateZ(${formattedRingRadius}px) scale(${scale})`,
-                  opacity,
-                  filter,
-                  pointerEvents,
-                  visibility,
+                  transform: `translateX(-50%) rotateY(${cellAngle}deg) translateZ(${formattedRingRadius}px) scale(${isFront ? 1 : isSide ? 0.95 : 0.9})`,
+                  opacity: isFront ? 1 : isSide ? 0.6 : 0.05,
+                  filter: isFront ? "none" : "brightness(0.6) blur(1px)",
+                  pointerEvents: isFront ? "auto" : "none",
+                  visibility: isVisible ? "visible" : "hidden",
                 }}
               >
-                <div className="mx-auto h-full w-full">{slide}</div>
+                <div className="mx-auto h-full w-full overflow-auto">{slide}</div>
               </div>
             )
           })}
         </div>
       </div>
 
-      <button
-        type="button"
-        aria-label="Área siguiente"
-        onClick={nextSlide}
-        className="absolute right-2 sm:right-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-neon-purple/60 bg-[#0c0c14]/90 p-4 text-neon-purple shadow-[0_0_30px_rgba(168,85,247,0.4)] backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-neon-purple hover:bg-[#141424] focus:outline-none focus:ring-2 focus:ring-neon-purple"
-      >
-        <ChevronRight className="h-7 w-7 text-neon-purple" />
-      </button>
-
-      <div className="mt-8 flex justify-center items-center gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Ir al área ${i + 1}`}
-            onClick={() => goToSlide(i)}
-            className={`h-3 rounded-full transition-all duration-300 ${
-              i === activeIndex
-                ? "w-10 bg-neon-purple shadow-[0_0_16px_var(--neon-purple)]"
-                : "w-3 bg-white/20 hover:bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
+      {dots}
     </div>
   )
 }

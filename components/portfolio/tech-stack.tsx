@@ -294,7 +294,10 @@ export function TechStack() {
   const { t } = useLanguage()
 
   return (
-    <section id="stack" className="border-y border-border bg-surface-tinted py-28 overflow-hidden">
+    <section
+      id="stack"
+      className="border-y border-border bg-surface-tinted py-20 sm:py-28 overflow-x-clip"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal>
           <p className="font-mono text-sm text-neon-blue">
@@ -311,25 +314,25 @@ export function TechStack() {
           <TechCarousel>
             {t.techStack.groups.map((group) => (
               <div key={group.name} className="w-full">
-                <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-[#12121e] to-[#0a0a12] p-8 sm:p-10 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-neon-purple/40 hover:shadow-[0_0_50px_rgba(168,85,247,0.15)]">
+                <div className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#12121e] to-[#0a0a12] p-3 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-neon-purple/40 hover:shadow-[0_0_50px_rgba(168,85,247,0.15)]">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neon-purple/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                  <h3 className="relative mb-8 text-base sm:text-lg font-bold uppercase tracking-widest text-neon-purple">
+                  <h3 className="relative mb-4 sm:mb-8 text-sm sm:text-lg font-bold uppercase tracking-widest text-neon-purple">
                     {group.name}
                   </h3>
 
-                  <div className="relative grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                  <div className="relative grid grid-cols-3 gap-1.5 sm:gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {group.techs.map((tech) => (
                       <div
                         key={`${group.name}-${tech}`}
-                        className="group/tech flex h-28 flex-col items-center justify-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4 text-center transition-all duration-300 hover:border-neon-purple/40 hover:bg-white/[0.06] hover:shadow-[0_0_25px_rgba(168,85,247,0.2)] hover:-translate-y-1"
+                        className="group/tech flex min-w-0 h-[4.5rem] sm:h-28 flex-col items-center justify-center gap-1 sm:gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-1.5 sm:p-4 text-center transition-all duration-300 hover:border-neon-purple/40 hover:bg-white/[0.06] hover:shadow-[0_0_25px_rgba(168,85,247,0.2)] hover:-translate-y-1"
                       >
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 shadow-md transition-all duration-300 group-hover/tech:scale-110 group-hover/tech:bg-white/20">
-                          <div className="transition-colors duration-300 group-hover/tech:text-neon-purple">
+                        <div className="flex h-7 w-7 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/10 shadow-md transition-all duration-300 group-hover/tech:scale-110 group-hover/tech:bg-white/20">
+                          <div className="transition-colors duration-300 group-hover/tech:text-neon-purple [&_svg]:h-4 [&_svg]:w-4 sm:[&_svg]:h-6 sm:[&_svg]:w-6">
                             {getTechIcon(tech)}
                           </div>
                         </div>
-                        <span className="line-clamp-2 text-xs sm:text-sm font-semibold leading-tight text-white/70 transition-colors duration-300 group-hover/tech:text-white/90">
+                        <span className="line-clamp-2 w-full break-words px-0.5 text-[10px] sm:text-sm font-semibold leading-tight text-white/70 transition-colors duration-300 group-hover/tech:text-white/90">
                           {tech}
                         </span>
                       </div>

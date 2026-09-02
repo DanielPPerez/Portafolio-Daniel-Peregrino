@@ -87,7 +87,7 @@ export function PortfolioNavbar() {
           <Link
             href="/RedFox_Solutions"
             onClick={goShadow}
-            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full border border-neon-blue/40 bg-neon-blue/10 px-5 py-2 text-[0.95rem] font-medium text-neon-blue transition-all hover:glow-border-blue hover:bg-neon-blue/20 md:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full border border-neon-purple/40 bg-neon-purple/10 px-5 py-2 text-[0.95rem] font-medium text-neon-purple transition-all hover:glow-border-purple hover:bg-neon-purple/20 md:inline-flex"
           >
             <span className="text-foreground">Red</span>
             <span className="text-red-500">Fox</span>
@@ -130,7 +130,7 @@ export function PortfolioNavbar() {
             <Link
               href="/RedFox_Solutions"
               onClick={goShadow}
-              className="flex items-center justify-center gap-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-4 py-2 text-center text-sm font-medium text-neon-blue"
+              className="flex items-center justify-center gap-1.5 rounded-full border border-neon-purple/40 bg-neon-purple/10 px-4 py-2 text-center text-sm font-medium text-neon-purple"
             >
               <span className="text-foreground">Red</span>
               <span className="text-red-500">Fox</span>

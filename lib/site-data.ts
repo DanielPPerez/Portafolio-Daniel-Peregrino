@@ -26,6 +26,9 @@ export const CV_PATHS = {
   en: "/cv/Daniel%20Peregrino_Full-Stack_CV_ENGLISH.pdf",
 } as const
 
+// Embed público de Google Calendar (vista de disponibilidad del portafolio).
+export const CALENDAR_SRC =
+  "https://calendar.google.com/calendar/embed?src=danielperegrinoperez%40gmail.com&ctz=America%2FMexico_City"
 // Embed público de Google Calendar para reservas; configurable por env.
 export const CALENDAR_BOOKING_SRC = process.env.NEXT_PUBLIC_CALENDAR_BOOKING_SRC ?? "" // dejar vacío si no se configura; el componente manejará la ausencia
 

@@ -243,3 +243,39 @@
 .animate-hero-slidein {
   animation: slidein 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+@keyframes testimonials-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonials-track {
+  animation: testimonials-scroll 40s linear infinite;
+}
+
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .testimonials-track > div:first-child {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .testimonials-loop-copy {
+    display: none;
+  }
+}

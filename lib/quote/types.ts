@@ -2,6 +2,16 @@
 // de modo que el motor concreto (mock ahora, Claude después) se puede intercambiar sin
 // tocar el componente del chat.
 
+import type { QuoteEstimate } from "./pricing-engine"
+
+export type { QuoteEstimate } from "./pricing-engine"
+
+/**
+ * @deprecated Alias de QuoteEstimate para compatibilidad con el motor `@deprecated` en
+ * `claude.ts`. Los consumidores activos deben usar QuoteEstimate directamente.
+ */
+export type Estimate = QuoteEstimate
+
 export type ChatRole = "user" | "assistant"
 
 export type ChatMessage = {
@@ -9,19 +19,23 @@ export type ChatMessage = {
   content: string
 }
 
-export type Estimate = {
-  min: number
-  max: number
-  currency: string
-}
+/**
+ * Línea de negocio sugerida por la UI al inicio de la conversación. Se envía al backend
+ * como pista opcional; el extractor (Fase 4) puede usarla para sesgar la primera
+ * clasificación, pero el modelo conserva su juicio si la conversación contradice el hint.
+ */
+export type BusinessLineHint = "software" | "repair"
 
 export type QuoteTurn = {
   /** Respuesta del asistente para mostrar en el chat. */
   reply: string
   /** Requisitos detectados hasta este punto de la conversación. */
   requirements: string[]
-  /** Estimado aproximado, presente solo cuando el motor tiene suficiente información. */
-  estimate?: Estimate
+  /**
+   * Estimado calculado por el motor determinístico (Fase 3). Ausente si el motor
+   * aún no tiene suficiente información o si la cotización requiere revisión manual.
+   */
+  estimate?: QuoteEstimate
 }
 
 /**

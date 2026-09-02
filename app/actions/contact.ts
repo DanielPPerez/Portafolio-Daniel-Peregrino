@@ -4,6 +4,7 @@ import { contactSchema, type ContactFieldErrors } from "@/lib/validation/contact
 import { google } from "googleapis"
 import { promises as fs } from "fs"
 import path from "path"
+import { encodeGmailRawMessage } from "@/lib/email/gmail-raw"
 
 export type ContactState = {
   ok: boolean
@@ -168,18 +169,12 @@ export async function submitContact(
     const sentMessage = await gmail.users.messages.send({
       userId: "me",
       requestBody: {
-        raw: Buffer.from(
-          `To: ${emailOptions.to}\r\n` +
-            `From: ${emailOptions.from}\r\n` +
-            `Subject: ${emailOptions.subject}\r\n` +
-            `MIME-Version: 1.0\r\n` +
-            `Content-Type: text/html; charset=UTF-8\r\n\r\n` +
-            `${emailOptions.html}`,
-        )
-          .toString("base64")
-          .replace(/\+/g, "-")
-          .replace(/\//g, "_")
-          .replace(/=+$/, ""),
+        raw: encodeGmailRawMessage({
+          to: emailOptions.to ?? "",
+          from: emailOptions.from,
+          subject: emailOptions.subject,
+          html: emailOptions.html,
+        }),
       },
     })
 

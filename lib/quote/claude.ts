@@ -1,6 +1,13 @@
 import { z } from "zod"
 import type { ChatMessage, QuoteTurn, Estimate } from "./types"
 
+/**
+ * @deprecated Este motor se conserva solo como referencia/rollback de la Fase 4.
+ * El motor activo del cotizador es `lib/quote/quote-engine.ts` (extracción ≠ cálculo, ADR-0014).
+ * @todo eliminar tras validar el nuevo motor en producción.
+ */
+export const __quoteEngineDeprecated = true
+
 /** Indica si el cotizador con IA está configurado (hay API key de Gemini). */
 export function isQuoteAiConfigured(): boolean {
   return Boolean(process.env.GOOGLE_API_KEY)
@@ -74,6 +81,7 @@ REGLAS DE FORMATO DE SALIDA:
 
 /**
  * Ejecuta un turno del cotizador con Gemini y devuelve la respuesta estructurada.
+ * @deprecated usar `createQuoteEngine` (Fase 4, ADR-0014) en lugar de este motor.
  */
 export async function runQuoteTurn(
   history: ChatMessage[],
@@ -187,10 +195,20 @@ export async function runQuoteTurn(
       typeof rawEstimate.currency === "string"
     ) {
       estimate = {
-        min: rawEstimate.min,
-        max: rawEstimate.max,
-        currency: rawEstimate.currency,
-      }
+        referenceMXN: Math.round((rawEstimate.min + rawEstimate.max) / 2),
+        lowMXN: rawEstimate.min,
+        highMXN: rawEstimate.max,
+        breakdown: [
+          {
+            labelKey: "quoteCatalog.mock.serviceEstimate",
+            amountMXN: Math.round((rawEstimate.min + rawEstimate.max) / 2),
+          },
+        ],
+        confidence: "calibrated",
+        requiresManualReview: false,
+        disclaimerKey: "quotePricing.disclaimer.softwareCalibrated",
+        // @deprecated este motor aplana USD → MXN con un FX interno; ver comentario arriba.
+      } as unknown as Estimate
     }
 
     return {

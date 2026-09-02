@@ -1,40 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { CalendarDays } from "lucide-react"
 import { Reveal } from "@/components/reveal"
-import { CALENDAR_BOOKING_SRC } from "@/lib/site-data"
+import { CALENDAR_SRC } from "@/lib/site-data"
 import { useLanguage } from "@/lib/i18n/language-context"
-import { MeetingRequestForm } from "@/components/shadow/meeting-request-form"
+
+const isUsableCalendarSrc = Boolean(CALENDAR_SRC) && !CALENDAR_SRC.includes("TU_CALENDARIO")
 
 export function Calendar() {
   const { t } = useLanguage()
-  const [approved, setApproved] = useState(false)
-  const [bookingUrl, setBookingUrl] = useState<string | null>(null)
-
-  // Check sessionStorage for prior approval in this session
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = sessionStorage.getItem("meetingRequestApproved")
-      if (stored === "true") {
-        setApproved(true)
-        // Try to get the booking URL from sessionStorage as well
-        const storedUrl = sessionStorage.getItem("meetingRequestBookingUrl")
-        if (storedUrl) {
-          setBookingUrl(storedUrl)
-        }
-      }
-    }
-  }, [])
-
-  const handleApproval = (url: string) => {
-    setApproved(true)
-    setBookingUrl(url)
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("meetingRequestApproved", "true")
-      sessionStorage.setItem("meetingRequestBookingUrl", url)
-    }
-  }
 
   return (
     <section className="border-y border-border bg-surface-tinted py-24">
@@ -51,11 +25,11 @@ export function Calendar() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          {approved ? (
+          {isUsableCalendarSrc ? (
             <div className="mt-10 overflow-hidden rounded-xl border border-border bg-black p-2">
               <div className="overflow-hidden rounded-lg">
                 <iframe
-                  src={bookingUrl || CALENDAR_BOOKING_SRC}
+                  src={CALENDAR_SRC}
                   title={t.calendar.title}
                   className="h-[420px] w-full"
                   style={{ filter: "invert(0.92) hue-rotate(180deg)" }}
@@ -64,7 +38,9 @@ export function Calendar() {
               </div>
             </div>
           ) : (
-            <MeetingRequestForm onApproval={handleApproval} />
+            <p className="mt-10 rounded-xl border border-border bg-background/40 p-6 text-sm text-foreground/60">
+              {t.calendar.unavailable}
+            </p>
           )}
         </Reveal>
       </div>

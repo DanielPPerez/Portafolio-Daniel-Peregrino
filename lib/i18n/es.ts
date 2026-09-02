@@ -191,10 +191,14 @@ export const es = {
   calendar: {
     title: "Mi disponibilidad",
     subtitle: "Revisa mi calendario y encuentra un hueco para conversar",
+    unavailable: "El calendario público no está configurado todavía.",
   },
   contact: {
     title: "Contacto",
-    subtitle: "Hablemos sobre tu próximo proyecto",
+    subtitle: "Busco mi siguiente equipo",
+    availability:
+      "Disponible de inmediato. Puedo mostrarte los casos y cómo los construí. Roles remotos de AI Full Stack, AI Systems o Product Engineer, en español o inglés.",
+    location: "Tuxtla Gutiérrez, Chiapas",
     email: "danielperegrinoperez@gmail.com",
     emailCopied: "¡Correo copiado!",
     socials: "Redes sociales",
@@ -360,26 +364,71 @@ export const es = {
       badge: "Asistente IA",
       title: "Cotiza tu proyecto",
       subtitle: "Cuéntanos qué necesitas y obtén un estimado aproximado al instante.",
+      inputPlaceholderByLine: {
+        software: "Describe tu proyecto... (ej. una tienda online con pagos)",
+        repair: "Describe tu dispositivo o falla... (ej. pantalla rota de iPhone 13)",
+      },
       inputPlaceholder: "Describe tu proyecto... (ej. una tienda online con pagos)",
       send: "Enviar",
       reset: "Reiniciar",
       thinking: "Escribiendo...",
       requirementsTitle: "Requisitos detectados",
       emptyRequirements: "Aún no hay requisitos. Empieza describiendo tu idea.",
-      estimateTitle: "Estimado aproximado",
+      requirementLabels: {
+        software: "Software",
+        repair: "Reparación",
+        addons: "Extras",
+        pending: "(pendiente)",
+      },
+      estimateTitle: "Estimado",
+      estimateEmpty: "Aún no hay estimado. Cuéntame más para poder calcularlo.",
+      breakdownTitle: "Desglose",
+      rangeLabel: "Rango",
       negotiable: "Estimado orientativo, sujeto a negociación según el alcance final.",
       cta: "Agendar llamada para afinar el presupuesto",
+      ctaManualReview: "Agendar una llamada para cotización manual",
+      manualReviewTitle: "Necesita cotización manual",
       disclaimer:
         "Demo: las respuestas son de ejemplo. La cotización final se confirma tras una llamada.",
       greeting:
         "¡Hola! Soy el asistente de RedFox_Solutions. Cuéntame en una o dos frases qué proyecto tienes en mente y te ayudo a estimar alcance y costo.",
+      lineSelector: {
+        title: "¿Qué te gustaría cotizar?",
+        subtitle: "Elige una opción para empezar. Podrás cambiarla más tarde.",
+        software: "Desarrollo de software",
+        softwareDescription: "Sitios web, apps, ERPs, integraciones",
+        repair: "Reparación de electrónico",
+        repairDescription: "Celulares, tablets, consolas",
+        change: "Cambiar tipo de cotización",
+        changeConfirm: "¿Cambiar de tipo? Se reiniciará la conversación.",
+      },
+      confidence: {
+        local_validated: "Precio local validado",
+        market_reference: "Precio de referencia nacional",
+        calibrated: "Estimado calibrado",
+        unavailable: "Requiere revisión manual",
+      },
       suggestions: [
         "Tienda online con pagos",
         "App móvil iOS y Android",
         "Integrar un chatbot con IA",
         "Sitio web corporativo",
       ],
-      script: {
+      suggestionsByLine: {
+        software: [
+          "Tienda online con pagos",
+          "App móvil iOS y Android",
+          "Integrar un chatbot con IA",
+          "Sitio web corporativo",
+        ],
+        repair: [
+          "Pantalla rota de celular",
+          "Cambio de batería",
+          "Mi consola no enciende",
+          "Diagnóstico general",
+        ],
+      },
+      scriptSoftware: {
         steps: [
           {
             reply:
@@ -399,6 +448,28 @@ export const es = {
         ],
         fallback:
           "Lo anoto. Cuando quieras, agenda una llamada y afinamos el presupuesto al detalle.",
+      },
+      scriptRepair: {
+        steps: [
+          {
+            reply:
+              "Cuéntame del dispositivo: ¿es un celular, tablet o consola? Modelo aproximado y qué le pasa (pantalla, batería, no enciende, mojado, etc.).",
+            requirements: ["Diagnóstico del dispositivo"],
+          },
+          {
+            reply:
+              "Entendido. ¿Tienes preferencia en la calidad del repuesto? ¿Original/premium o genérico más económico?",
+            requirements: ["Tipo de dispositivo identificado"],
+          },
+          {
+            reply:
+              "Perfecto, con eso puedo darte un estimado inicial. Aquí tienes el rango aproximado para la reparación 👇",
+            requirements: ["Calidad del repuesto definida"],
+            withEstimate: true,
+          },
+        ],
+        fallback:
+          "Lo anoto. Cuando traigas el equipo o agendes una cita, confirmamos el precio final tras el diagnóstico en taller.",
       },
     },
     contactForm: {
@@ -454,6 +525,12 @@ export const es = {
         message: "Por favor escribe un mensaje",
         atLeastOneChannel: "Al menos un canal de contacto (teléfono o red social) es obligatorio",
       },
+      summarySoftware: "Resumen de la consulta de software desde el chat del cotizador.",
+      summaryRepair: "Resumen de la consulta de reparación desde el chat del cotizador.",
+      defaultProjectNameRepair: "Reparación desde consulta",
+      defaultProjectNameSoftware: "Proyecto desde consulta",
+      defaultScopeSoftware: "Definir alcance basado en la conversación del chat",
+      defaultScopeRepair: "Diagnóstico y servicio según conversación del chat",
     },
     meetingRequest: {
       title: "Solicitar reunión",
@@ -503,6 +580,95 @@ export const es = {
     footer: {
       rights: "Todos los derechos reservados.",
       tagline: "Desarrollo de software a medida e integración de IA.",
+    },
+  },
+  quoteCatalog: {
+    modules: {
+      authentication: "Autenticación",
+      users: "Usuarios",
+      rolesPermissions: "Roles y permisos",
+      products: "Productos",
+      inventory: "Inventario",
+      customers: "Clientes",
+      suppliers: "Proveedores",
+      purchases: "Compras",
+      sales: "Ventas",
+      accountsReceivable: "Cuentas por cobrar",
+      accountsPayable: "Cuentas por pagar",
+      commercialDocuments: "Documentos comerciales",
+      reports: "Reportes",
+      dashboard: "Dashboard",
+      settings: "Configuración",
+    },
+    milestones: {
+      projectStart: "Inicio del proyecto",
+      developmentComplete: "Conclusión de la etapa de desarrollo",
+      deliveryAcceptance: "Entrega y aceptación del sistema",
+    },
+    exclusions: {
+      hardware: "Adquisición de hardware",
+      thirdPartyLicenses: "Licencias de terceros",
+      hosting: "Servicios de hospedaje",
+      domains: "Dominios",
+      certifications: "Certificaciones",
+      outOfScope: "Desarrollos adicionales no contemplados en el alcance",
+    },
+    repairs: {
+      phone: {
+        screen: "Reemplazo de pantalla",
+        battery: "Reemplazo de batería",
+        chargingPort: "Puerto de carga",
+        buttons: "Reparación de botones",
+        software: "Diagnóstico y solución de software",
+        dataRecovery: "Recuperación de datos",
+        camera: "Reparación de cámara",
+        speaker: "Reparación de bocina",
+        cleaning: "Limpieza interna",
+        accountUnlock: "Desbloqueo de cuenta",
+        motherboard: "Reparación de tarjeta madre",
+        backGlass: "Reemplazo de vidrio trasero",
+        fingerprint: "Sensor de huella",
+        microphone: "Reparación de micrófono",
+        protector: "Instalación de protector de pantalla",
+        waterResistance: "Reparación por daño de agua",
+        diagnostics: "Diagnóstico",
+        appConfig: "Configuración de aplicaciones",
+        antenna: "Reemplazo de antena",
+        wifi: "Reparación de Wi-Fi",
+        screen_premium_original: "Pantalla original premium",
+        screen_economic_incell: "Pantalla genérica incell",
+      },
+      console: {
+        cleaning: "Limpieza y pasta térmica",
+        diagnostics: "Diagnóstico de consola",
+        joystickDrift: "Drift de joystick",
+        hdmiPort: "Reparación de puerto HDMI",
+        powerSupply: "Reparación de fuente de poder",
+        discDrive: "Reparación de lector de discos",
+        battery: "Reemplazo de batería",
+        controller: "Reparación de mando",
+        software: "Reparación de software",
+        overheating: "Reparación de sobrecalentamiento",
+      },
+    },
+    addons: {
+      homePickupDelivery: "Recolección a domicilio",
+      advancedDiagnostics: "Diagnóstico avanzado",
+    },
+    mock: {
+      serviceEstimate: "Tarifa de servicio de referencia",
+    },
+  },
+  quotePricing: {
+    disclaimer: {
+      softwareCalibrated:
+        "Estimado basado en proyectos similares. El precio final se confirma tras la llamada.",
+      softwareHasUnknownModule:
+        "Hay módulos que no reconocí del catálogo. Te paso a revisión manual.",
+      softwareEmptySelection: "Necesito saber qué módulos incluir para cotizar.",
+      repairLocalValidated: "Precio basado en encuesta local Chiapas.",
+      repairMarketReference: "Precio de referencia nacional; falta validación local.",
+      repairUnavailable: "Sin datos para esta categoría. Requiere revisión manual.",
     },
   },
 }

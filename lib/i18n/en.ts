@@ -192,10 +192,14 @@ export const en: Dictionary = {
   calendar: {
     title: "My availability",
     subtitle: "Check my calendar and find a time to chat",
+    unavailable: "The public calendar is not configured yet.",
   },
   contact: {
     title: "Contact",
-    subtitle: "Let's talk about your next project",
+    subtitle: "Looking for my next team",
+    availability:
+      "Available immediately. I can walk you through the cases and how I built them. Remote roles in AI Full Stack, AI Systems, or Product Engineer, in Spanish or English.",
+    location: "Tuxtla Gutiérrez, Chiapas",
     email: "danielperegrinoperez@gmail.com",
     emailCopied: "Email copied!",
     socials: "Social media",
@@ -353,25 +357,70 @@ export const en: Dictionary = {
       badge: "AI Assistant",
       title: "Get a quote for your project",
       subtitle: "Tell us what you need and get a ballpark estimate instantly.",
+      inputPlaceholderByLine: {
+        software: "Describe your project... (e.g. an online store with payments)",
+        repair: "Describe your device or issue... (e.g. iPhone 13 broken screen)",
+      },
       inputPlaceholder: "Describe your project... (e.g. an online store with payments)",
       send: "Send",
       reset: "Reset",
       thinking: "Typing...",
       requirementsTitle: "Detected requirements",
       emptyRequirements: "No requirements yet. Start by describing your idea.",
-      estimateTitle: "Ballpark estimate",
+      requirementLabels: {
+        software: "Software",
+        repair: "Repair",
+        addons: "Add-ons",
+        pending: "(pending)",
+      },
+      estimateTitle: "Estimate",
+      estimateEmpty: "No estimate yet. Tell me more so I can calculate it.",
+      breakdownTitle: "Breakdown",
+      rangeLabel: "Range",
       negotiable: "Indicative estimate, subject to negotiation based on the final scope.",
       cta: "Book a call to refine the budget",
+      ctaManualReview: "Book a call for a manual quote",
+      manualReviewTitle: "Needs a manual quote",
       disclaimer: "Demo: replies are sample responses. The final quote is confirmed after a call.",
       greeting:
         "Hi! I'm the RedFox_Solutions assistant. Tell me in a sentence or two what project you have in mind and I'll help you estimate scope and cost.",
+      lineSelector: {
+        title: "What would you like a quote for?",
+        subtitle: "Pick an option to get started. You can switch later.",
+        software: "Software development",
+        softwareDescription: "Websites, apps, ERPs, integrations",
+        repair: "Electronics repair",
+        repairDescription: "Phones, tablets, consoles",
+        change: "Change quote type",
+        changeConfirm: "Change quote type? The conversation will reset.",
+      },
+      confidence: {
+        local_validated: "Locally validated price",
+        market_reference: "National reference price",
+        calibrated: "Calibrated estimate",
+        unavailable: "Requires manual review",
+      },
       suggestions: [
         "Online store with payments",
         "iOS and Android mobile app",
         "Integrate an AI chatbot",
         "Corporate website",
       ],
-      script: {
+      suggestionsByLine: {
+        software: [
+          "Online store with payments",
+          "iOS and Android mobile app",
+          "Integrate an AI chatbot",
+          "Corporate website",
+        ],
+        repair: [
+          "Cracked phone screen",
+          "Battery replacement",
+          "My console won't turn on",
+          "General diagnostic",
+        ],
+      },
+      scriptSoftware: {
         steps: [
           {
             reply:
@@ -391,6 +440,28 @@ export const en: Dictionary = {
         ],
         fallback:
           "Noted. Whenever you're ready, book a call and we'll refine the budget in detail.",
+      },
+      scriptRepair: {
+        steps: [
+          {
+            reply:
+              "Tell me about the device: is it a phone, tablet, or console? Approximate model and what's wrong (screen, battery, won't turn on, water damage, etc.).",
+            requirements: ["Device diagnostic"],
+          },
+          {
+            reply:
+              "Got it. Do you have a preference on part quality? Original/premium or a more affordable generic option?",
+            requirements: ["Device category identified"],
+          },
+          {
+            reply:
+              "Perfect, with that I can give you an initial estimate. Here's the approximate range for the repair 👇",
+            requirements: ["Part quality defined"],
+            withEstimate: true,
+          },
+        ],
+        fallback:
+          "Noted. When you bring the device in or book an appointment, we'll confirm the final price after the in-shop diagnostic.",
       },
     },
     contactForm: {
@@ -438,14 +509,20 @@ export const en: Dictionary = {
         email: "Please enter a valid email",
         projectName: "Please enter your project name",
         projectDescription: "Please describe your project",
-        projectScope: "Please outline the scope",
-        budget: "Please provide a budget estimate",
-        timeline: "Please provide a timeline",
+        projectScope: "Please describe the project scope",
+        budget: "Please provide an estimated budget",
+        timeline: "Please provide an estimated timeline",
         deliverables: "Please list expected deliverables",
         additionalNotes: "Please provide additional notes if applicable",
         message: "Please write a message",
         atLeastOneChannel: "At least one contact channel (phone or social media) is required",
       },
+      summarySoftware: "Summary of the software consultation from the quote chat.",
+      summaryRepair: "Summary of the repair consultation from the quote chat.",
+      defaultProjectNameRepair: "Repair from chat",
+      defaultProjectNameSoftware: "Project from chat",
+      defaultScopeSoftware: "Scope to be defined based on the chat conversation",
+      defaultScopeRepair: "Diagnostic and service per the chat conversation",
     },
     meetingRequest: {
       title: "Request a meeting",
@@ -495,6 +572,94 @@ export const en: Dictionary = {
     footer: {
       rights: "All rights reserved.",
       tagline: "Custom software development and AI integration.",
+    },
+  },
+  quoteCatalog: {
+    modules: {
+      authentication: "Authentication",
+      users: "Users",
+      rolesPermissions: "Roles and permissions",
+      products: "Products",
+      inventory: "Inventory",
+      customers: "Customers",
+      suppliers: "Suppliers",
+      purchases: "Purchases",
+      sales: "Sales",
+      accountsReceivable: "Accounts receivable",
+      accountsPayable: "Accounts payable",
+      commercialDocuments: "Commercial documents",
+      reports: "Reports",
+      dashboard: "Dashboard",
+      settings: "Settings",
+    },
+    milestones: {
+      projectStart: "Project start",
+      developmentComplete: "End of the development stage",
+      deliveryAcceptance: "Delivery and system acceptance",
+    },
+    exclusions: {
+      hardware: "Hardware acquisition",
+      thirdPartyLicenses: "Third-party licenses",
+      hosting: "Hosting services",
+      domains: "Domains",
+      certifications: "Certifications",
+      outOfScope: "Additional development not included in the scope",
+    },
+    repairs: {
+      phone: {
+        screen: "Screen replacement",
+        battery: "Battery replacement",
+        chargingPort: "Charging port",
+        buttons: "Button repair",
+        software: "Software troubleshooting",
+        dataRecovery: "Data recovery",
+        camera: "Camera repair",
+        speaker: "Speaker repair",
+        cleaning: "Internal cleaning",
+        accountUnlock: "Account unlock",
+        motherboard: "Motherboard repair",
+        backGlass: "Back glass replacement",
+        fingerprint: "Fingerprint sensor",
+        microphone: "Microphone repair",
+        protector: "Screen protector install",
+        waterResistance: "Water damage repair",
+        diagnostics: "Diagnostics",
+        appConfig: "App configuration",
+        antenna: "Antenna replacement",
+        wifi: "Wi-Fi repair",
+        screen_premium_original: "Premium original screen",
+        screen_economic_incell: "Budget incell screen",
+      },
+      console: {
+        cleaning: "Cleaning & thermal paste",
+        diagnostics: "Console diagnostics",
+        joystickDrift: "Joystick drift",
+        hdmiPort: "HDMI port repair",
+        powerSupply: "Power supply repair",
+        discDrive: "Disc drive repair",
+        battery: "Battery replacement",
+        controller: "Controller repair",
+        software: "Software repair",
+        overheating: "Overheating repair",
+      },
+    },
+    addons: {
+      homePickupDelivery: "Home pickup & delivery",
+      advancedDiagnostics: "Advanced diagnostics",
+    },
+    mock: {
+      serviceEstimate: "Reference service rate",
+    },
+  },
+  quotePricing: {
+    disclaimer: {
+      softwareCalibrated:
+        "Estimate based on similar projects. The final price is confirmed after a call.",
+      softwareHasUnknownModule: "Some modules weren't in the catalog. Routing to manual review.",
+      softwareEmptySelection: "I need to know which modules to include to quote.",
+      repairLocalValidated: "Price based on a local Chiapas survey.",
+      repairMarketReference: "National reference price; local validation pending.",
+      repairUnavailable: "No data for this category. Requires manual review.",
     },
   },
 }

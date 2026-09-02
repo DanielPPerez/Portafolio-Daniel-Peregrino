@@ -14,7 +14,7 @@ export function SocialBar({ variant = "neon" }: { variant?: "neon" | "sober" }) 
   const itemClass = cn(
     "group inline-flex size-11 items-center justify-center rounded-full border transition-all",
     neon
-      ? "border-white/10 bg-white/5 text-white/70 hover:border-neon-purple/60 hover:text-white hover:glow-border-purple"
+      ? "border-border bg-background/60 text-foreground/80 hover:border-neon-purple/60 hover:text-foreground hover:glow-border-purple"
       : "border-border bg-card text-muted-foreground hover:border-brand hover:text-brand",
   )
 
@@ -56,7 +56,7 @@ export function SocialBar({ variant = "neon" }: { variant?: "neon" | "sober" }) 
                   className={cn(
                     "absolute -top-11 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md border px-3 py-1.5 text-xs shadow-lg",
                     neon
-                      ? "border-neon-purple/40 bg-[#0c0c12] text-white"
+                      ? "border-neon-purple/40 bg-background text-foreground"
                       : "border-border bg-card text-foreground",
                   )}
                 >
