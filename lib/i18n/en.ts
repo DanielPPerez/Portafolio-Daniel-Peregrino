@@ -1,5 +1,5 @@
 import type { Dictionary } from "./es"
-import { projects } from "../projects"
+import { projects, projectsEn } from "../projects"
 
 export const en: Dictionary = {
   nav: {
@@ -35,19 +35,24 @@ export const en: Dictionary = {
   },
   about: {
     title: "About me",
-    subtitle: "Full Stack Engineer & Software Architect",
+    subtitle: "Full Stack Engineer & AI Integration Specialist",
     paragraphs: [
-      "I'm a full stack engineer focused on scalable software architecture and AI integration. I design and build microservices with Python and Nest.js, and develop modern frontends with React, Vite and Next.js.",
-      "I apply Hexagonal Architecture and Atomic Design principles to create maintainable, decoupled systems. I'm passionate about applied AI: from RAG pipelines and agents with LangGraph to computer vision with YOLO and OpenCV.",
-      "I enjoy turning complex problems into simple, fast and reliable products.",
+      "Full Stack Developer passionate about Artificial Intelligence with experience in the development of ERP, SaaS, B2B, and B2C software products: from gathering requirements and designing MVPs to scaling solutions in production. Technical proficiency in AI agents, MCP, LangChain, LangGraph, and RAG, as well as modern architectures and best practices in documentation and version control. Extensive knowledge in project management, from planning and tracking to delivery and support, coupled with effective communication, adaptability, and continuous learning.",
+      "Value proposition: I quickly understand business needs and translate them into viable technical solutions, delivering high-quality results from sprint one.",
     ],
-    highlights: ["Hexagonal Architecture", "Atomic Design", "Microservices", "Applied AI"],
+    highlights: [
+      "Architecture Design",
+      "Database Management",
+      "Microservices",
+      "Applied AI",
+      "Project Management",
+    ],
   },
   projects: {
     title: "Projects",
     subtitle: "A selection of recent work with live preview",
     visit: "Visit site",
-    items: projects,
+    items: projectsEn,
   },
   techStack: {
     title: "Tech Stack",
@@ -165,25 +170,35 @@ export const en: Dictionary = {
     subtitle: "My professional journey",
     items: [
       {
-        role: "Full Stack AI Specialist",
+        role: "Software & AI Engineer — Lead Computer Vision Developer",
+        company: "APrendIA Project (Professional Internship) — Tuxtla Gutiérrez",
+        period: "01/2026 – 04/2026",
+        description: [
+          "Designed an asynchronous backend architecture with FastAPI for an educational assessment platform featuring a desktop client.",
+          "Built an Edge Computing pipeline using Python and OpenCV to extract and normalize handwritten characters in noisy environments.",
+          "Implemented object detection with YOLOv1, morphological filters (CLAHE, adaptive thresholding), and a scoring engine based on distance transforms and skeletonization.",
+        ],
+      },
+      {
+        role: "Full Stack AI Engineer & Code Reviewer / AI Training Specialist",
         company: "Outlier AI",
-        period: "Feb 2025 — Jan 2026",
-        description:
-          "Training and evaluating AI models, building internal tools and data pipelines to improve model quality.",
+        period: "02/2025 – 01/2026",
+        description: [
+          "Audited and optimized AI-generated full-stack solutions, identifying logical bugs and security vulnerabilities.",
+          "Developed Golden Trajectories (Ground Truth), documenting reasoning and tool usage for AI agents.",
+          "Implemented atomic evaluation rubrics and audited Python/SQL code, enhancing accuracy and solution quality.",
+        ],
       },
       {
-        role: "Full Stack Engineer",
-        company: "Digital Solutions Development",
-        period: "Jan 2025 — Dec 2025",
-        description:
-          "Design and implementation of web applications and APIs with microservices architecture, focused on scalability and performance.",
-      },
-      {
-        role: "Full Stack & AI Engineer",
-        company: "APrendIA Project",
-        period: "Jan 2026 — Apr 2026",
-        description:
-          "Development of an educational platform with an AI tutor, integrating language models and recommendation systems.",
+        role: "Full Stack Software Engineer & Data Analyst",
+        company: "Freelance / Independent Projects",
+        period: "01/2025 – 12/2025",
+        description: [
+          "Engineered microservices with Hexagonal Architecture in Python and Node.js, using Supabase and Firebase as BaaS.",
+          "Built dynamic user interfaces with Next.js, React, and TypeScript following Atomic Design principles, reducing development cycles.",
+          "Deployed systems to AWS and Railway with Docker and CI/CD pipelines, ensuring high availability.",
+          "Designed and administered PostgreSQL and MySQL relational databases: complex schema modeling, query optimization, and data integrity.",
+        ],
       },
     ],
     certificationsTitle: "Certifications",
@@ -211,15 +226,22 @@ export const en: Dictionary = {
   },
   highlight: {
     latestProject: "Latest project",
-    currentRole: "Current role",
+    currentRole: "Latest role",
     techStack: "Main stack",
     experience: "Experience",
     primaryCard: {
-      tagline: "Full Stack & AI Engineer",
-      headline: "Scalable software architecture & AI integration",
+      tagline: "Work Process",
+      headline: "Understanding business rules all the way to production",
       description:
-        "I design and build maintainable microservices and high-performance frontends combining Python, Next.js, and AI agents.",
-      tags: ["Python", "Next.js", "FastAPI", "AI / RAG", "Microservices"],
+        "I apply critical thinking to understand business rules, make informed decisions, and deliver to production efficiently and effectively.",
+      tags: [
+        "AI Agents",
+        "Function Calling",
+        "Structured Outputs",
+        "AI / RAG / LangGraph",
+        "Databases",
+        "Data Processing",
+      ],
     },
   },
   shadow: {

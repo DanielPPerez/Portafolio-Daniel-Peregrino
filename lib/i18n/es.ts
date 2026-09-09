@@ -34,13 +34,18 @@ export const es = {
   },
   about: {
     title: "Acerca de mí",
-    subtitle: "Ingeniero Full Stack & Arquitecto de Software",
+    subtitle: "Ingeniero Full Stack & Especialista en Integraciones de IA",
     paragraphs: [
-      "Soy ingeniero full stack con foco en arquitectura de software escalable e integración de inteligencia artificial. Diseño y construyo microservicios con Python y Nest.js, y desarrollo frontends modernos con React, Vite y Next.js.",
-      "Aplico principios de Arquitectura Hexagonal y Atomic Design para crear sistemas mantenibles y desacoplados. Me apasiona la IA aplicada: desde pipelines de RAG y agentes con LangGraph hasta visión por computadora con YOLO y OpenCV.",
-      "Disfruto convertir problemas complejos en productos simples, rápidos y confiables.",
+      "Desarrollador Full Stack apasionado por la Inteligencia Artificial  con experiencia en el desarrollo de productos de software ERP;SAAS, B2B y B2C: desde levantar requerimientos y diseñar MVP hasta escalar la solución en producción. Tengo Dominio técnico en agentes de IA, MCP, LangChain, LangGraph y RAG, además de arquitecturas modernas y buenas prácticas de documentación y control de versiones.Tengo amplio conocimiento en la gestión de proyectos, desde la planeación y el seguimiento hasta la entrega y el soporte.Ademas cuento con Comunicación efectiva, adaptabilidad y aprendizaje constante. ",
+      "Propuesta de valor: entiendo rápido las necesidades del negocio y las traduzco en soluciones técnicas viables, entregando resultados con calidad desde el primer sprint.",
     ],
-    highlights: ["Arquitectura Hexagonal", "Atomic Design", "Microservicios", "IA Aplicada"],
+    highlights: [
+      "Diseño De Arquitecturas",
+      "Manejo de Bases de Datos",
+      "Microservicios",
+      "IA Aplicada",
+      "Gestión de Proyectos",
+    ],
   },
   projects: {
     title: "Proyectos",
@@ -164,25 +169,35 @@ export const es = {
     subtitle: "Mi trayectoria profesional",
     items: [
       {
-        role: "Full Stack AI Specialist",
+        role: "Software & AI Engineer — Desarrollador Líder de Visión Artificial",
+        company: "Proyecto APrendIA (Estadía Profesional) — Tuxtla Gutiérrez",
+        period: "01/2026 – 04/2026",
+        description: [
+          "Diseñé la arquitectura backend asíncrona con FastAPI para una plataforma educativa de evaluación con cliente de escritorio.",
+          "Construí un pipeline de Edge Computing con Python y OpenCV para extraer y normalizar caracteres manuscritos en entornos ruidosos.",
+          "Implementé detección con YOLOv1, filtros morfológicos (CLAHE, umbral adaptativo) y motor de calificación por distancia y esqueletización.",
+        ],
+      },
+      {
+        role: "Full Stack AI Engineer & Code Reviewer / Especialista en Entrenamiento de IA",
         company: "Outlier AI",
-        period: "Feb 2025 — Ene 2026",
-        description:
-          "Entrenamiento y evaluación de modelos de IA, desarrollo de herramientas internas y pipelines de datos para mejorar la calidad de los modelos.",
+        period: "02/2025 – 01/2026",
+        description: [
+          "Audité y optimicé soluciones Full Stack generadas por IA, detectando fallas lógicas y vulnerabilidades de seguridad.",
+          "Desarrollé Trayectorias Doradas (Ground Truth), documentando razonamiento y uso de herramientas para agentes de IA.",
+          "Implementé rúbricas de evaluación atómicas y audité código Python/SQL, mejorando precisión y calidad de las soluciones.",
+        ],
       },
       {
-        role: "Ingeniero Full Stack",
-        company: "Desarrollo de Soluciones Digitales",
-        period: "Ene 2025 — Dic 2025",
-        description:
-          "Diseño e implementación de aplicaciones web y APIs con arquitectura de microservicios, enfocado en escalabilidad y rendimiento.",
-      },
-      {
-        role: "Full Stack & AI Engineer",
-        company: "Proyecto APrendIA",
-        period: "Ene 2026 — Abr 2026",
-        description:
-          "Desarrollo de una plataforma educativa con tutor de IA, integrando modelos de lenguaje y sistemas de recomendación.",
+        role: "Full Stack Software Engineer & Analista de Datos",
+        company: "Proyectos Freelance / Independientes",
+        period: "01/2025 – 12/2025",
+        description: [
+          "Microservicios con arquitectura hexagonal en Python y Node.js, con Supabase y Firebase como BaaS.",
+          "Construcción de interfaces con Next.js, React y TypeScript aplicando Atomic Design, reduciendo ciclos de desarrollo.",
+          "Despliegue de sistemas en AWS y Railway con Docker y CI/CD, garantizando alta disponibilidad.",
+          "Diseño y administración de bases de datos relacionales PostgreSQL y MySQL: esquemas complejos, optimización de consultas e integridad.",
+        ],
       },
     ],
     certificationsTitle: "Certificaciones",
@@ -210,17 +225,26 @@ export const es = {
   },
   highlight: {
     latestProject: "Último proyecto",
-    currentRole: "Rol actual",
+    currentRole: "Ultimo puesto",
     techStack: "Stack principal",
     experience: "Experiencia",
     primaryCard: {
-      tagline: "Full Stack & AI Engineer",
-      headline: "Arquitectura de software escalable e integración de IA",
+      tagline: "Proceso de Trabajo",
+      headline: "Entendendiendo las reglas de negocio hasta llegar a produccion",
       description:
-        "Diseño e implemento microservicios mantenibles y frontends de alto rendimiento combinando Python, Next.js y agentes de IA.",
-      tags: ["Python", "Next.js", "FastAPI", "IA / RAG", "Microservicios"],
+        "Aplico el pensaiento critico para entender las reglas de negocio, tomar desiciones informadas y llegar a produccion de manera eficiente y efectiva.",
+      tags: [
+        "Agentes de IA",
+        "llamada de funciones",
+        "Salidas estructuradas",
+        "IA/RAG /LangGraph",
+        "Bases de Datos",
+        "Procesamiento de datos",
+      ],
     },
   },
+
+  // REDFOX SOLUTIONS
   shadow: {
     nav: {
       services: "Servicios",

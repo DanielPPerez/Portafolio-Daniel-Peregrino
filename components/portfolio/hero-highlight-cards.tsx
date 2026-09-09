@@ -80,7 +80,7 @@ export function HeroHighlightCards() {
   const latestCard: HighlightCard = {
     kind: "latest-project",
     title: latestProject.title,
-    period: "2025 — Presente",
+    period: "01/2026 — 04/2026",
     description: latestProject.description,
     bullets: latestProject.tags,
   }
@@ -128,25 +128,27 @@ export function HeroHighlightCards() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="space-y-4"
+      className="space-y-2 sm:space-y-2.5"
     >
       {cards.map((card) => (
         <motion.div key={card.kind} variants={cardVariants}>
-          <div className="rounded-xl border border-border bg-card/60 p-5 shadow-sm backdrop-blur-sm transition-all hover:border-brand/40 hover:shadow-md">
+          <div className="rounded-xl border border-border bg-card/60 p-3 sm:p-3.5 shadow-sm backdrop-blur-sm transition-all hover:border-brand/40 hover:shadow-md">
             {card.kind === "primary" && (
               <>
-                <p className="font-mono text-xs font-semibold tracking-wider text-neon-blue uppercase">
+                <p className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-neon-blue uppercase">
                   {card.tagline}
                 </p>
-                <h2 className="mt-1.5 text-xl font-bold text-foreground">{card.headline}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <h2 className="mt-0.5 text-sm sm:text-base font-bold text-foreground leading-tight">
+                  {card.headline}
+                </h2>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground line-clamp-2">
                   {card.description}
                 </p>
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="mt-2 flex flex-wrap gap-1">
                   {card.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md border border-border bg-muted/50 px-2.5 py-0.5 text-xs font-medium text-foreground/80"
+                      className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[10px] font-medium text-foreground/80"
                     >
                       {tag}
                     </span>
@@ -158,21 +160,23 @@ export function HeroHighlightCards() {
             {card.kind === "latest-project" && (
               <>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-neon-purple">
+                  <h3 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-neon-purple">
                     {t.highlight.latestProject}
                   </h3>
-                  <span className="font-mono text-xs text-muted-foreground">{card.period}</span>
+                  <span className="font-mono text-[10px] text-muted-foreground">{card.period}</span>
                 </div>
-                <h2 className="mt-1 text-lg font-bold text-foreground">{card.title}</h2>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                <h2 className="mt-0.5 text-sm sm:text-base font-bold text-foreground leading-tight">
+                  {card.title}
+                </h2>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground line-clamp-2">
                   {card.description}
                 </p>
                 {card.bullets.length > 0 && (
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  <div className="mt-1.5 flex flex-wrap gap-1">
                     {card.bullets.map((b) => (
                       <span
                         key={b}
-                        className="rounded-md border border-border bg-muted/30 px-2 py-0.5 text-[11px] text-muted-foreground"
+                        className="rounded-md border border-border bg-muted/30 px-1.5 py-0.5 text-[10px] text-muted-foreground"
                       >
                         {b}
                       </span>
@@ -184,29 +188,31 @@ export function HeroHighlightCards() {
 
             {card.kind === "current-role" && (
               <>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-neon-purple">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-neon-purple shrink-0">
                     {t.highlight.currentRole}
                   </h3>
-                  <span className="rounded-full bg-brand/10 px-2 py-0.5 font-mono text-[11px] text-brand">
+                  <span className="rounded-full bg-brand/10 px-2 py-0.5 font-mono text-[10px] text-brand truncate max-w-[200px]">
                     {card.mode}
                   </span>
                 </div>
-                <p className="mt-1 font-mono text-sm font-bold text-foreground">{card.role}</p>
-                <p className="mt-0.5 font-mono text-xs text-muted-foreground">{card.period}</p>
+                <p className="mt-0.5 font-mono text-xs sm:text-sm font-bold text-foreground leading-tight">
+                  {card.role}
+                </p>
+                <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">{card.period}</p>
               </>
             )}
 
             {card.kind === "tech-stack" && (
               <>
-                <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-neon-purple">
+                <h3 className="mb-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-neon-purple">
                   {t.highlight.techStack}
                 </h3>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {card.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-md border border-border bg-muted/40 px-2.5 py-1 text-xs font-medium text-foreground/85"
+                      className="rounded-md border border-border bg-muted/40 px-2 py-0.5 text-[10px] font-medium text-foreground/85"
                     >
                       {item}
                     </span>
@@ -217,13 +223,15 @@ export function HeroHighlightCards() {
 
             {card.kind === "experience" && (
               <>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-neon-purple">
+                <h3 className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-neon-purple">
                   {t.highlight.experience}
                 </h3>
-                <p className="mt-1 font-mono text-base font-bold text-neon-blue">
+                <p className="mt-0.5 font-mono text-xs sm:text-sm font-bold text-neon-blue">
                   {card.years}+ {t.stats.items[0]?.label ?? "Años de experiencia"}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">{card.blurb}</p>
+                <p className="mt-0.5 text-[10px] sm:text-xs text-muted-foreground truncate">
+                  {card.blurb}
+                </p>
               </>
             )}
           </div>

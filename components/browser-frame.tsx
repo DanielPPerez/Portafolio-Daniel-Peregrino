@@ -22,11 +22,24 @@ export function BrowserFrame({
 }: BrowserFrameProps) {
   const [failed, setFailed] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [imgError, setImgError] = useState(false)
   let host = url
   try {
     host = new URL(url).host
   } catch {
     host = url
+  }
+
+  const getIframeSrc = (rawUrl: string) => {
+    if (
+      (rawUrl.includes("figma.com/design") ||
+        rawUrl.includes("figma.com/proto") ||
+        rawUrl.includes("figma.com/file")) &&
+      !rawUrl.includes("figma.com/embed")
+    ) {
+      return `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(rawUrl)}`
+    }
+    return rawUrl
   }
 
   const neon = variant === "neon"
@@ -72,11 +85,12 @@ export function BrowserFrame({
               />
             )}
             <iframe
-              src={url}
+              src={getIframeSrc(url)}
               title={title}
               loading="lazy"
               referrerPolicy="no-referrer"
-              sandbox="allow-scripts allow-same-origin allow-popups"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+              allowFullScreen
               className="h-full w-full bg-white"
               onLoad={() => setLoaded(true)}
               onError={() => setFailed(true)}
@@ -85,18 +99,28 @@ export function BrowserFrame({
         ) : (
           <div
             className={cn(
-              "flex h-full w-full flex-col items-center justify-center gap-3 text-center",
+              "flex h-full w-full flex-col items-center justify-center gap-3 p-4 text-center",
               neon ? "bg-gradient-to-br from-[#14101f] to-[#0c0c12]" : "bg-muted",
             )}
           >
-            {fallbackImage ? (
+            {fallbackImage && !imgError ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={fallbackImage} alt={title} className="h-full w-full object-cover" />
-            ) : (
-              <Globe
-                className={cn("size-10", neon ? "text-neon-blue" : "text-muted-foreground")}
-                aria-hidden="true"
+              <img
+                src={fallbackImage}
+                alt={title}
+                className="h-full w-full object-cover"
+                onError={() => setImgError(true)}
               />
+            ) : (
+              <div className="flex flex-col items-center gap-2">
+                <Globe
+                  className={cn("size-10", neon ? "text-neon-blue" : "text-muted-foreground")}
+                  aria-hidden="true"
+                />
+                <p className="font-mono text-xs text-foreground/50 truncate max-w-[220px]">
+                  {title}
+                </p>
+              </div>
             )}
           </div>
         )}

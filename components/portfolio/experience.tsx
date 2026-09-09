@@ -50,9 +50,20 @@ export function Experience() {
                   <p className="font-mono text-xs text-neon-blue">{item.period}</p>
                   <h3 className="mt-1 text-lg font-semibold text-foreground">{item.role}</h3>
                   <p className="text-sm text-foreground/50">{item.company}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground/65">
-                    {item.description}
-                  </p>
+                  {Array.isArray(item.description) ? (
+                    <ul className="mt-3 space-y-2 text-sm leading-relaxed text-foreground/75">
+                      {item.description.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <span className="mt-0.5 text-neon-blue font-bold shrink-0">▸</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-2 text-sm leading-relaxed text-foreground/65">
+                      {item.description}
+                    </p>
+                  )}
                 </li>
               </Reveal>
             ))}

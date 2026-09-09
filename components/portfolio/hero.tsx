@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-screen items-center overflow-hidden py-16 lg:py-24"
+      className="relative flex min-h-screen items-center overflow-hidden py-14 lg:py-16"
     >
       <MatrixRain />
       {/* gradient veil so text stays readable */}
@@ -107,7 +107,7 @@ export function Hero() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 80, scale: 0.95 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
-                className="w-full lg:w-[40%] lg:absolute lg:right-0 shrink-0 mt-8 lg:mt-0"
+                className="w-full lg:w-[41%] lg:absolute lg:right-0 shrink-0 mt-8 lg:mt-0 max-h-[calc(100vh-6.5rem)] overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1"
               >
                 <HeroHighlightCards />
               </motion.div>

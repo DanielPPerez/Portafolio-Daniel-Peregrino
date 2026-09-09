@@ -22,8 +22,8 @@ export const socialLinks: SocialLink[] = [
 
 // Rutas reales de los PDFs en /public/cv (el espacio del archivo EN va URL-encoded).
 export const CV_PATHS = {
-  es: "/cv/Daniel-Peregrino-Full-Stack_CV.pdf",
-  en: "/cv/Daniel%20Peregrino_Full-Stack_CV_ENGLISH.pdf",
+  es: "/cv/CV_ES.pdf",
+  en: "/cv/CV_EN.pdf",
 } as const
 
 // Embed público de Google Calendar (vista de disponibilidad del portafolio).
