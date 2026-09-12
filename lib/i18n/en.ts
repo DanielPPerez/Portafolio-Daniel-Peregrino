@@ -16,6 +16,7 @@ export const en: Dictionary = {
     cvCollapse: "Reduce",
     openInNewTab: "Open in new tab",
     cvTitle: "Daniel Peregrino — CV",
+    available: "Available",
   },
   hero: {
     greeting: "Hi, I'm",

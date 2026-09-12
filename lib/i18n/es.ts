@@ -15,6 +15,7 @@ export const es = {
     cvCollapse: "Reducir",
     openInNewTab: "Abrir en pestaña",
     cvTitle: "Daniel Peregrino — CV",
+    available: "Disponible",
   },
   hero: {
     greeting: "Hola, soy",

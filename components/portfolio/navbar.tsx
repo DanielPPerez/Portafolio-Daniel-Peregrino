@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/language-context"
 import { LanguageToggle } from "@/components/language-toggle"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { usePageTransition } from "@/components/page-transition"
+import { IS_AVAILABLE } from "@/lib/site-data"
 import { cn } from "@/lib/utils"
 
 const SECTIONS = ["inicio", "acerca", "proyectos", "stack", "experiencia", "contacto"] as const
@@ -54,9 +55,23 @@ export function PortfolioNavbar() {
     <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300 border-b border-transparent bg-transparent">
       <nav className="relative flex h-[4.4rem] w-full items-center gap-4 px-4 sm:px-6 lg:px-8">
         {/* DP — extremo izquierdo */}
-        <a href="#inicio" className="shrink-0 text-foreground text-glow-purple">
-          DP
-        </a>
+        <div className="flex shrink-0 items-center gap-3">
+          <a href="#inicio" className="text-foreground text-glow-purple">
+            DP
+          </a>
+          {IS_AVAILABLE && (
+            <span
+              className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400 backdrop-blur-sm"
+              title={t.nav.available}
+            >
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500 shadow-[0_0_4px_#10b981]" />
+              </span>
+              <span className="hidden sm:inline">{t.nav.available}</span>
+            </span>
+          )}
+        </div>
 
         {/* Secciones — centradas (en flujo normal, no se solapan) */}
         <ul className="hidden flex-1 items-center justify-center gap-1 xl:flex">

@@ -32,6 +32,9 @@ export const CALENDAR_SRC =
 // Embed público de Google Calendar para reservas; configurable por env.
 export const CALENDAR_BOOKING_SRC = process.env.NEXT_PUBLIC_CALENDAR_BOOKING_SRC ?? "" // dejar vacío si no se configura; el componente manejará la ausencia
 
+// Disponibilidad para contrataciones
+export const IS_AVAILABLE = true
+
 export type Certification = {
   issuer: string
   name: string
