@@ -53,6 +53,7 @@ export const en: Dictionary = {
     title: "Projects",
     subtitle: "A selection of recent work with live preview",
     visit: "Visit site",
+    viewPdf: "View PDF",
     items: projectsEn,
   },
   techStack: {

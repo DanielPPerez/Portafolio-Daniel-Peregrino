@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Globe } from "lucide-react"
+import { ExternalLink, Globe, FileText } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 type BrowserFrameProps = {
@@ -23,12 +23,17 @@ export function BrowserFrame({
   const [failed, setFailed] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [imgError, setImgError] = useState(false)
+
+  const isPdf = url.toLowerCase().includes(".pdf")
+
   let host = url
   try {
     host = new URL(url).host
   } catch {
     host = url
   }
+
+  const displayHost = isPdf ? decodeURIComponent(url.split("/").pop() || "documento.pdf") : host
 
   const getIframeSrc = (rawUrl: string) => {
     if (
@@ -69,8 +74,12 @@ export function BrowserFrame({
             neon ? "bg-black/40 text-white/60" : "bg-background text-muted-foreground",
           )}
         >
-          <Globe className="size-3 shrink-0" aria-hidden="true" />
-          <span className="truncate">{host}</span>
+          {isPdf ? (
+            <FileText className="size-3 shrink-0 text-neon-purple" aria-hidden="true" />
+          ) : (
+            <Globe className="size-3 shrink-0" aria-hidden="true" />
+          )}
+          <span className="truncate">{displayHost}</span>
         </div>
       </div>
 
@@ -89,7 +98,11 @@ export function BrowserFrame({
               title={title}
               loading="lazy"
               referrerPolicy="no-referrer"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+              sandbox={
+                isPdf
+                  ? undefined
+                  : "allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+              }
               allowFullScreen
               className="h-full w-full bg-white"
               onLoad={() => setLoaded(true)}
@@ -108,15 +121,25 @@ export function BrowserFrame({
               <img
                 src={fallbackImage}
                 alt={title}
-                className="h-full w-full object-cover"
+                className={cn(
+                  "h-full w-full",
+                  isPdf ? "object-contain bg-[#08080c] p-2" : "object-cover",
+                )}
                 onError={() => setImgError(true)}
               />
             ) : (
               <div className="flex flex-col items-center gap-2">
-                <Globe
-                  className={cn("size-10", neon ? "text-neon-blue" : "text-muted-foreground")}
-                  aria-hidden="true"
-                />
+                {isPdf ? (
+                  <FileText
+                    className={cn("size-10", neon ? "text-neon-purple" : "text-muted-foreground")}
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <Globe
+                    className={cn("size-10", neon ? "text-neon-blue" : "text-muted-foreground")}
+                    aria-hidden="true"
+                  />
+                )}
                 <p className="font-mono text-xs text-foreground/50 truncate max-w-[220px]">
                   {title}
                 </p>

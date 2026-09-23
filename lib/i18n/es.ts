@@ -52,6 +52,7 @@ export const es = {
     title: "Proyectos",
     subtitle: "Una selección de trabajos recientes con previsualización en vivo",
     visit: "Ver sitio",
+    viewPdf: "Ver PDF",
     items: projects,
   },
   techStack: {

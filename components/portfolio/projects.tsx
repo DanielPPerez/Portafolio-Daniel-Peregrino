@@ -9,6 +9,7 @@ const fallbacks: Record<string, string> = {
   web: "/images/project-web.png",
   figma: "/images/project-figma.png",
   game: "/images/project-game.png",
+  pdf: "/images/project-eda.png",
 }
 
 export function Projects() {
@@ -38,8 +39,8 @@ export function Projects() {
                 <BrowserFrame
                   url={project.url}
                   title={project.title}
-                  visitLabel={t.projects.visit}
-                  fallbackImage={fallbacks[project.type]}
+                  visitLabel={project.type === "pdf" ? t.projects.viewPdf : t.projects.visit}
+                  fallbackImage={project.thumbnail || fallbacks[project.type]}
                 />
                 <div className="flex flex-1 flex-col">
                   <div className="flex items-start justify-between gap-3">
@@ -48,7 +49,7 @@ export function Projects() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${t.projects.visit}: ${project.title}`}
+                      aria-label={`${project.type === "pdf" ? t.projects.viewPdf : t.projects.visit}: ${project.title}`}
                       className="text-foreground/40 transition-colors hover:text-neon-purple"
                     >
                       <ExternalLink className="size-4" />
